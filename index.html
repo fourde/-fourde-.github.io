@@ -11,27 +11,24 @@
     
     <body>
         
-        <h2 align ="center">   </h2>
-        <form id="form" name ="form1" align="center">
-            <h3> Enter contact :  </h3> <br>
-            <label> Name :  </label>
-        <input type="text" name ="name_form" value ="Ex : Jhon" onFocus="if (this.value=='Ex : Jhon') {this.value=''}"> <br>
-            <label> Phone : </label>
-        <input type="text" name="phone_form" value ="Ex : 06..." onFocus="if (this.value=='Ex : 06...') {this.value=''}"> <br>
-            <label> Address </label>
-        <input type="text" name="address_form" value ="11..." onFocus="if (this.value=='11...') {this.value=''}"> <br>
-            <label> Email </label>
-        <input type="text" name="email_form" value ="jhon@gmail.com" onFocus="if (this.value=='jhon@gmail.com') {this.value=''}"> <br>
-        <input type="submit" value="submit">
+
             
         <div id = div_total  >  </div>
         
         
-    </form>
+    
         
         
         <script src="main.js">     
         </script>
+    <script>
+    
+    Starfield.initialise(div_total);
+    Starfield.start();
+    Starfield.update();
+    Starfield.draw();
+    
+    </script>
         
     </body>
     
