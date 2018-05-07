@@ -36,7 +36,21 @@
     display : flex;
     
 }
-
+#title_ju  {
+       z-index : 2;
+    position : absolute; 
+    display : flex;
+    top : 5%;
+    left : 30%;    
+    text-align: center;
+    margin: auto;
+    color : white;
+    font-family: Impact;
+    text-shadow: 8px 0px 30px  green;
+    
+    	-moz-text-shadow: 0px 0px 30px 0px #3dc21b;
+	-webkit-text-shadow: 0px 0px 30px 0px #3dc21b;
+}
 #about_btn {
     width : 10%;
     height : 8%;
