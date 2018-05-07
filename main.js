@@ -121,3 +121,10 @@ var ctx = canvas.getContext("2d");
 ctx.fillText("Press 'Space' to start.", canvas.width / 2, canvas.height/2);  */
     
 }
+
+function high_score_display () {
+    
+    alert("ouiii");
+    
+    
+}

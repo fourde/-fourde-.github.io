@@ -23,6 +23,20 @@
     border : 1px solid grey;
     }
 
+
+/*  bouttons  */
+
+#high_score_btn {
+    width : 5%;
+    height : 3%;
+    left : 85%;
+    top : 20%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+}
+
+
 #body {
     
     overflow-x: hidden;
