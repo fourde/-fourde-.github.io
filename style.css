@@ -23,3 +23,10 @@
     border : 1px solid grey;
     }
 
+#body {
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position : relative;
+    
+}
