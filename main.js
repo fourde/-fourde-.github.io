@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 // starfield part 
 
 
@@ -218,4 +218,4 @@ function Star(x, y, size, velocity) {
 	this.size = size;
 }
 
->>>>>>> 4fe3704d968dd229edad959cd3d594604126fde7
+
