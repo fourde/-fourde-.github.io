@@ -37,6 +37,16 @@
     
 }
 
+#about_btn {
+    width : 10%;
+    height : 8%;
+    left : 85%;
+    top : 30%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+    
+}
 
 #body {
     
@@ -58,7 +68,11 @@
 	cursor:pointer;
 	color:#ffffff;
 	font-family:Impact;
-	font-size: 15%;
+	font-size: 1%;
 	padding:1% 2%;
 	text-decoration:none;
 	text-shadow:0px 1px 14px #000000;
+    
+        z-index : 1;
+    position : absolute;
+    display : flex;

@@ -66,6 +66,8 @@ var Starfield =  {
 },
     
     update : function() {
+        
+        
 	var dt = 1 / this.fps;
 
 	for(var i=0; i<this.stars.length; i++) {
@@ -112,6 +114,7 @@ window.onload="draw()";
 
 function draw() {
     screen.lockOrientationUniversal("landscape-primary");
+    alert("bli");
 /*var canvas = document.getElementById("game_canvas");
 var ctx = canvas.getContext("2d");
 
