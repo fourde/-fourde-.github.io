@@ -111,6 +111,7 @@ function Star(x, y, size, velocity) {
 window.onload="draw()";
 
 function draw() {
+    screen.lockOrientationUniversal("landscape-primary");
 /*var canvas = document.getElementById("game_canvas");
 var ctx = canvas.getContext("2d");
 
