@@ -10,14 +10,15 @@
 }
 
 
-.game_canvas { 
+#game_canvas { 
     width: 70%;
     height: 80%;
     align-content: center;
-    left : 50%;
-    top : 50%;
-    background-color: aqua;
+    left : 10%;
+    top : 10%;
     position: absolute;
     z-index : 1;
     display: flex;
+                   
+    border : 1px solid grey;
     }
