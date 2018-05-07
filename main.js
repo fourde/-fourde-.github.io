@@ -108,3 +108,16 @@ function Star(x, y, size, velocity) {
 	this.size = size;
 }
 
+window.onload="draw()";
+
+function draw() {
+/*var canvas = document.getElementById("game_canvas");
+var ctx = canvas.getContext("2d");
+
+    ctx.font="30px Arial";
+    ctx.fillStyle = '#ffffff';
+    ctx.textBaseline="center"; 
+    ctx.textAlign="center";
+ctx.fillText("Press 'Space' to start.", canvas.width / 2, canvas.height/2);  */
+    
+}

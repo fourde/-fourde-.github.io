@@ -10,7 +10,27 @@
            <meta name="description" content="Clairemetn je sais pas">
            <link rel="stylesheet" href="style.css">
            
+           <style> 
            
+            #gamecontainer {
+                width: 800px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+               
+               #game_canvas { 
+    width: 70%;
+    height: 80%;
+    align-content: center;
+    left : 10%;
+    top : 10%;
+    position: absolute;
+    z-index : 1;
+    display: flex;
+                   
+    border : 4px solid aqua;
+    }
+           </style>
            
            
                <meta charset="utf-8">
@@ -31,22 +51,20 @@
 
     <!-- Color the status bar on mobile devices -->
     <meta name="theme-color" content="#2F3BA2">
-
-
-           
-           
-           
         </head>
     
     <body>
         
 
             
-        <div id = div_total  >  </div>
-         <div id="dataContainerOrientation">
-      No device orientation data
-    </div>
-        
+        <div id = star_background  >   </div>
+                  <canvas id="game_canvas" >  </canvas>
+        <div id = "gamecontainer" background-color = "aqua" >
+            
+            heyezyfez
+          <canvas id="game_canvas" >  </canvas>
+        </div>
+       
     
         
         
@@ -54,7 +72,7 @@
         </script>
     <script>
     
-    Starfield.initialise(div_total);
+    Starfield.initialise(star_background);
     Starfield.start();
   //  Starfield.update();
    // Starfield.draw();
