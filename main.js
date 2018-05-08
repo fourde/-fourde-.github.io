@@ -1,9 +1,11 @@
 // starfield part 
 
+// game part
 
+var gameElement = document.getElementById("game_area");
 var game = {
     
-     high_score_list : [] ,
+     high_score_list : ["FOurde 300", "Tchoin 42", "celine ponton"],
     
     
     load_high_score : function  () {
@@ -16,7 +18,29 @@ var game = {
         localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
         
         
+    },
+    
+    show_high_score : function () {
+        
+        var highscore_area = document.createElement("div");
+        gameElement.appendChild(highscore_area);
+        highscore_area.setAttribute("class","highscore_class");
+        
+        for(var i=0;i<this.high_score_list.length;i++) 
+            {
+                highscore_area.innerHTML += this.high_score_list[i];
+                highscore_area.innerHTML += "<br> <br>";
+            }
+        
+        
+        
+        
+        
+        
+        
+        
     }
+    
 
     
 }
