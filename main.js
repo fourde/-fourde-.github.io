@@ -5,7 +5,7 @@
 var gameElement = document.getElementById("game_area");
 var game = {
     
-     high_score_list : ["Hitler0", "Staline", "celine ponton", "goebels"],
+     high_score_list : ["Kevin CHieze", "Kevin chieze", "celine ponton", "Guillaume Pikahitler","Adele Bert","Jean-Yves"],
     
     
     load_high_score : function  () {
