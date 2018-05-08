@@ -78,10 +78,17 @@
     
     color : #00F020;
     font-weight : bold ;
-    font-size : 100%;
+    font-size : 150%;
     text-align: center;
-    width: 100%;
-    height: 100%;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 10%;
+    border : dashed;
+    border-color: #00F070;
+    border-width : 3px;
+    border-radius: 10%;
+    position: absolute;
     
 }
 

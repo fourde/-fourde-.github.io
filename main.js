@@ -26,6 +26,9 @@ var game = {
         gameElement.appendChild(highscore_area);
         highscore_area.setAttribute("class","highscore_class");
         
+        
+        highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
+        
         for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
