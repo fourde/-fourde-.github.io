@@ -113,22 +113,27 @@ function Star(x, y, size, velocity) {
 window.onload="draw()";
 
 function draw() {
-    screen.lockOrientationUniversal("landscape-primary");
-    alert("bli");
-/*var canvas = document.getElementById("game_canvas");
+    
+    /*var game_canva = document.getElementById("game_canvas");
+    var ctx = game_canva.getContext("2d");
+    
+    ctx.fillText("tchoin tchoincthcoin");
+    ctx.fillStyle('#000000');
+     */
+
+    
+}
+
+function high_score_display () {
+    
+   // alert("ouiii");
+    var canvas = document.getElementById("game_canvas");
 var ctx = canvas.getContext("2d");
 
     ctx.font="30px Arial";
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="center"; 
     ctx.textAlign="center";
-ctx.fillText("Press 'Space' to start.", canvas.width / 2, canvas.height/2);  */
-    
-}
-
-function high_score_display () {
-    
-    alert("ouiii");
-    
+ctx.fillText("Press 'Space' to start.", canvas.width / 2, canvas.height/2);  
     
 }
