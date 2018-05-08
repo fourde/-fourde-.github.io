@@ -24,18 +24,9 @@
     }
 
 
-/*  bouttons  */
-
-#high_score_btn {
-    width : 10%;
-    height : 8%;
-    left : 78%;
-    top : 20%;
-    z-index : 1;
-    position : absolute;
-    display : flex;
-    
-}
+/*****************************************/
+/***************  Text *********************/
+/*****************************************/
 #title_ju  {
        z-index : 2;
     position : absolute; 
@@ -51,6 +42,37 @@
     	-moz-text-shadow: 0px 0px 30px 0px #3dc21b;
 	-webkit-text-shadow: 0px 0px 30px 0px #3dc21b;
 }
+
+
+
+#intro_text {
+    
+    z-index : 2;
+    position : absolute; 
+    display : flex;
+    left : 78%;
+    top : 60%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    
+}
+
+
+/*  bouttons  */
+
+#high_score_btn {
+    width : 10%;
+    height : 8%;
+    left : 78%;
+    top : 20%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+    
+}
+
 #about_btn {
     width : 10%;
     height : 8%;
