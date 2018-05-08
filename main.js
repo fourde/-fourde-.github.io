@@ -5,7 +5,7 @@
 var gameElement = document.getElementById("game_area");
 var game = {
     
-     high_score_list : ["Kevin CHieze", "Kevin chieze", "celine ponton", "Guillaume Pikahitler","Adele Bert","Jean-Yves"],
+     high_score_list : ["Kevin CHieze", "Kevin chieze", "celine ponton", "Guillaume Valette","Adele Bert","Jean-Yves"],
     
     
     load_high_score : function  () {
@@ -32,7 +32,7 @@ var game = {
         for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
-                highscore_area.innerHTML += "<br> <br>";
+                highscore_area.innerHTML += "<br>";
             }
         
         
