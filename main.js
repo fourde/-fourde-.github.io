@@ -1,6 +1,26 @@
 // starfield part 
 
 
+var game = {
+    
+     high_score_list : [] ,
+    
+    
+    load_high_score : function  () {
+    
+    this.high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
+},
+    
+    save_high_score : function () {
+        
+        localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
+        
+        
+    }
+
+    
+}
+
 var Starfield =  {
 	fps : 60,
 	canvas : null,
@@ -124,7 +144,10 @@ function draw() {
     
 }
 
+
 function high_score_display () {
+    
+    
     
    // alert("ouiii");
     var canvas = document.getElementById("game_canvas");
@@ -134,6 +157,8 @@ var ctx = canvas.getContext("2d");
     ctx.fillStyle = '#ffffff';
     ctx.textBaseline="center"; 
     ctx.textAlign="center";
-ctx.fillText("Press 'Space' to start.", canvas.width / 2, canvas.height/2);  
+ctx.fillText("hey ho lets go", canvas.width / 2, canvas.height/2);  
+    
+    
     
 }
