@@ -32,7 +32,7 @@ var game = {
         for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
-                highscore_area.innerHTML += "<br>";
+                highscore_area.innerHTML += "<br> <br>";
             }
         
         
