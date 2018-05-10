@@ -64,6 +64,8 @@ var monster  = {
         img.src = "mechant1.jpg";
     },
 };
+
+
 for(var j=0; j<2; j++){
     for (var i=0; i<10;i++){
         monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:0});
@@ -289,21 +291,3 @@ function draw () {
     
 }
 
-
-function high_score_display () {
-    
-    
-    
-   // alert("ouiii");
-    var canvas = document.getElementById("game_canvas");
-var ctx = canvas.getContext("2d");
-
-    ctx.font="30px Arial";
-    ctx.fillStyle = '#ffffff';
-    ctx.textBaseline="center"; 
-    ctx.textAlign="center";
-ctx.fillText("hey ho lets go", canvas.width / 2, canvas.height/2);  
-    
-    
-    
-}
