@@ -127,6 +127,7 @@ var game = {
     
     show_high_score : function () {
         
+<<<<<<< HEAD
         
         alert ("tchoin");
         var highscore_area = document.createElement("div");
