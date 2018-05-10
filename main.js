@@ -133,14 +133,29 @@ var game = {
         var highscore_area = document.createElement("div");
         gameElement.appendChild(highscore_area);
         highscore_area.setAttribute("class","highscore_class");
+=======
+        if (displaying_HS==false) {
+            displaying_HS = true;
+            var highscore_area = document.createElement("div");
+            gameElement.appendChild(highscore_area);
+            highscore_area.setAttribute("class","highscore_class");
+>>>>>>> 8cb2f1a85a6a51c80aebe45de128b3a032247447
         
         
             highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
         
+            for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
                 highscore_area.innerHTML += "<br> <br>";
             }
+        }
+        else {
+            
+                gameElement.removeChild(gameElement.lastChild);
+            displaying_HS= false;
+            
+        }
         
         
         
