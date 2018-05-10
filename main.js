@@ -1,11 +1,24 @@
-// starfield part 
+// starfield part
+
+// Game var
+
+//canvas
 var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 var img = new Image();
 var ID;
+
+//Game speed
 var frameRate = 800;
+
+
+// HUD var;
+
+var displaying_HS = false // Know if we actually display highscore
+
+
 // game part
 
 
@@ -121,9 +134,8 @@ var game = {
         highscore_area.setAttribute("class","highscore_class");
         
         
-        highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
+            highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
         
-        for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
                 highscore_area.innerHTML += "<br> <br>";
