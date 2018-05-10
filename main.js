@@ -25,7 +25,7 @@ var spaceShip  = {
         img.onload = function() {
             ctx.drawImage(img, 0, 60, 293, 272, xb, yb, 65, 40);
         };
-        img.src = "space-invader.png";
+        img.src = "space-invader.jpg";
     },
 };
 spaceShip.draw();
@@ -36,43 +36,49 @@ var monster  = {
     x: canvas.width*0.2,
     y: canvas.height*0.07,
     direction: 1,
+    tabMonster:[],
     draw: function () {
-        var num = this.number/3;
         var xb = this.x;
         var yb = this.y;
         //var t = 
         img.onload = function() {
-            for(var j=0; j<3; j++){
-                for (var i=0; i<num;i++){
+            for(var j=0; j<2; j++){
+                for (var i=0; i<10;i++){
                     ctx.drawImage(img, 0, 60, 1600, 950, xb+i*canvas.width*0.06, yb+j*canvas.height*0.08, 65, 40);
                 }
             }
         };
-        img.src = "mechant1.png";
+        img.src = "mechant1.jpg";
     },
 };
+for(var j=0; j<2; j++){
+    for (var i=0; i<10;i++){
+        monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:0});
+    }
+}
+console.log(monster.tabMonster);
 monster.draw();
 
 
 
 
 (function updateMonster() {
-    for(var j=0; j<3; j++){
-        for (var i=0; i<((monster.number)/3);i++){
+    for(var j=0; j<2; j++){
+        for (var i=0; i<10;i++){
             ctx.clearRect(monster.x+i*canvas.width*0.06, monster.y+j*canvas.height*0.08, 65, 40);
         }
     }
     if(monster.direction==1){
-        if(monster.x<canvas.width*0.4){
-            monster.x+=canvas.width*0.07;
+        if(monster.x<canvas.width*0.35){
+            monster.x+=canvas.width*0.03;
         } else{
             monster.y+=canvas.height*0.05;
             monster.direction=-1;
         }
     }
     else if(monster.direction==-1){
-        if(monster.x>canvas.width*0.05){
-            monster.x-=canvas.width*0.07;
+        if(monster.x>canvas.width*0.07){
+            monster.x-=canvas.width*0.03;
         } else{
             monster.y+=canvas.height*0.05;
             monster.direction=1;
