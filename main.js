@@ -1,6 +1,92 @@
 // starfield part 
-
+var canvas = document.querySelector("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var ctx = canvas.getContext("2d");
+var img = new Image();
+var ID;
+var frameRate = 800;
 // game part
+
+
+
+
+
+
+
+var spaceShip  = {
+    game: 1,
+    x: canvas.width*0.5,
+    y: canvas.height*0.8,
+    direction: 1,
+    draw: function () {
+        var xb = this.x;
+        var yb = this.y;
+        img.onload = function() {
+            ctx.drawImage(img, 0, 60, 293, 272, xb, yb, 65, 40);
+        };
+        img.src = "space-invader.jpg";
+    },
+};
+spaceShip.draw();
+
+
+var monster  = {
+    number: 30,
+    x: canvas.width*0.2,
+    y: canvas.height*0.07,
+    direction: 1,
+    draw: function () {
+        var num = this.number/3;
+        var xb = this.x;
+        var yb = this.y;
+        //var t = 
+        img.onload = function() {
+            for(var j=0; j<3; j++){
+                for (var i=0; i<num;i++){
+                    ctx.drawImage(img, 0, 60, 1600, 950, xb+i*canvas.width*0.06, yb+j*canvas.height*0.08, 65, 40);
+                }
+            }
+        };
+        img.src = "mechant1.jpg";
+    },
+};
+monster.draw();
+
+
+
+
+(function updateMonster() {
+    for(var j=0; j<3; j++){
+        for (var i=0; i<((monster.number)/3);i++){
+            ctx.clearRect(monster.x+i*canvas.width*0.06, monster.y+j*canvas.height*0.08, 65, 40);
+        }
+    }
+    if(monster.direction==1){
+        if(monster.x<canvas.width*0.4){
+            monster.x+=canvas.width*0.07;
+        } else{
+            monster.y+=canvas.height*0.05;
+            monster.direction=-1;
+        }
+    }
+    else if(monster.direction==-1){
+        if(monster.x>canvas.width*0.05){
+            monster.x-=canvas.width*0.07;
+        } else{
+            monster.y+=canvas.height*0.05;
+            monster.direction=1;
+        }
+    }
+    monster.draw();
+    ID = setTimeout(updateMonster, frameRate);
+    /*if (spaceShip.game==0){
+        clearTimeout(ID);
+    }*/
+})();
+
+
+
 
 var gameElement = document.getElementById("game_area");
 var game = {
@@ -42,7 +128,9 @@ var game = {
         
         
         
-    }
+    },
+    
+    
     
 
     
@@ -159,8 +247,8 @@ function Star(x, y, size, velocity) {
 
 window.onload="draw()";
 
-function draw() {
-    
+function draw () {
+    alert("Tchoin");
     /*var game_canva = document.getElementById("game_canvas");
     var ctx = game_canva.getContext("2d");
     
