@@ -114,6 +114,8 @@ var game = {
     
     show_high_score : function () {
         
+        
+        alert ("tchoin");
         var highscore_area = document.createElement("div");
         gameElement.appendChild(highscore_area);
         highscore_area.setAttribute("class","highscore_class");
