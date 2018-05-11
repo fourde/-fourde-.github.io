@@ -103,7 +103,7 @@ monster.draw();
     
       window.addEventListener("deviceorientation", function () 
     {
-      alert("hey");
+ 
           processGyro(event.alpha, event.beta, event.gamma);  
     }, true);
     
@@ -309,7 +309,7 @@ if (window.DeviceOrientationEvent)
 {
     window.addEventListener("deviceorientation", function () 
     {
-      //  processGyro(event.alpha, event.beta, event.gamma);  
+        processGyro(event.alpha, event.beta, event.gamma);  
     }, true);
 } 
 
