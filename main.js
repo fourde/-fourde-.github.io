@@ -312,26 +312,26 @@ function processGyro(alpha,beta,gamma)
 	
     
     document.getElementById("intro_text").innerHTML=canvas.width;
-        if (beta > 3) {
+        if (beta > 2) {
   
             
             
-            if (spaceShip.x - canvas.width*((beta / 1000)*2) > 0 ) {
+            if (spaceShip.x - canvas.width*((beta / 1000)*3) > 0 ) {
                 
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-       spaceShip.x-=canvas.width*((beta / 1000)*2) ;
+       spaceShip.x-=canvas.width*((beta / 1000)*3) ;
         spaceShip.draw(); 
             }
      
             
         //weapon.draw();
     } 
-    else if (beta < -3){
+    else if (beta < -2){
         
-         if (spaceShip.x + canvas.width*((beta / 1000)*2) < window.width * 0,8 ) {
+         if (spaceShip.x + canvas.width*((beta / 1000)*3) < window.width * 0,8 ) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*2);
+        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
         spaceShip.draw();
              
          }
