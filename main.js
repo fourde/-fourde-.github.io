@@ -302,7 +302,7 @@ if (window.DeviceOrientationEvent)
     window.addEventListener("deviceorientation", function () 
     {
         processGyro(event.alpha, event.beta, event.gamma); 
-        alert("hey");
+        
     }, true);
 } 
 
