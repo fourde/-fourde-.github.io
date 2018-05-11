@@ -285,7 +285,7 @@ function Star(x, y, size, velocity) {
 window.onload="draw()";
 
 function draw () {
-    alert("Tchoin");
+   
     /*var game_canva = document.getElementById("game_canvas");
     var ctx = game_canva.getContext("2d");
     
