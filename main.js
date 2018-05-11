@@ -38,7 +38,7 @@ var spaceShip  = {
         img.onload = function() {
             ctx.drawImage(img, 0, 60, 293, 272, xb, yb, 65, 40);
         };
-        img.src = "space-invader.jpg";
+        img.src = "space-invader.png";
     },
 };
 spaceShip.draw();
@@ -61,7 +61,7 @@ var monster  = {
                 }
             }
         };
-        img.src = "mechant1.jpg";
+        img.src = "mechant1.png";
     },
 };
 
@@ -167,6 +167,10 @@ var game = {
 
     
 }
+
+
+
+
 
 var Starfield =  {
 	fps : 60,
@@ -307,4 +311,19 @@ function processGyro(alpha,beta,gamma)
 	document.getElementById("intro_text").innerHTML=alpha;
 	document.getElementById("beta").innerHTML=beta;
 	document.getElementById("gamma").innerHTML =gamma;
+    
+    
+        if (beta > 0) {
+        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        spaceShip.x-=canvas.width*0.03 ;
+        spaceShip.draw();
+        //weapon.draw();
+    } 
+    else if (beta < 0){
+        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        spaceShip.x+= canvas.width*0.03;
+        spaceShip.draw();
+        //weapon.draw();
+    }
+    
 }
