@@ -311,7 +311,7 @@ function processGyro(alpha,beta,gamma)
 {
 	
     
-    document.getElementById("intro_text").innerHTML=spaceShip.x;
+    document.getElementById("intro_text").innerHTML=canvas.width;
         if (beta > 3) {
   
             
