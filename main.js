@@ -100,7 +100,13 @@ monster.draw();
         }
     }
     monster.draw();
-    processGyro(event.alpha, event.beta, event.gamma); 
+    
+      window.addEventListener("deviceorientation", function () 
+    {
+        processGyro(event.alpha, event.beta, event.gamma);  
+    }, true);
+    
+    
     ID = setTimeout(updateMonster, frameRate);
     /*if (spaceShip.game==0){
         clearTimeout(ID);
