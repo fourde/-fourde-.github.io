@@ -341,24 +341,3 @@ function processGyro(alpha,beta,gamma)
     
 }
 
-document.addEventListener("keydown", function (event) {
-    if (event.key === "ArrowLeft") {
-       
-        
-                 if (spaceShip.x - canvas.width*((beta / 1000)*2) > 0 ) {
-                
-              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-       spaceShip.x-=canvas.width*((beta / 1000)*2) ;
-        spaceShip.draw(); 
-        //weapon.draw();
-                 }
-    } 
-    else if (event.key === "ArrowRight"){
-       if (spaceShip.x + canvas.width*((beta / 1000)*2) < canvas.width ) {
-        
-        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*2);
-        spaceShip.draw();
-        //weapon.draw();
-    }
-} });
