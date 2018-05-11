@@ -313,19 +313,28 @@ function processGyro(alpha,beta,gamma)
     
     
         if (beta > 3) {
-        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+  
             
             
-            
-        spaceShip.x-=canvas.width*((beta / 1000)*5) ;
-        spaceShip.draw();
+            if (spaceShip.x - canvas.width*((beta / 1000)*2) > 0 ) {
+                
+              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+       spaceShip.x-=canvas.width*((beta / 1000)*2) ;
+        spaceShip.draw(); 
+            }
+     
             
         //weapon.draw();
     } 
     else if (beta < -3){
+        
+         if (spaceShip.x + canvas.width*((beta / 1000)*2) < canvas.width ) {
+        
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*5);
+        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*2);
         spaceShip.draw();
+             
+         }
     
         //weapon.draw();
     }
