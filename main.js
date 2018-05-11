@@ -103,7 +103,8 @@ monster.draw();
     
       window.addEventListener("deviceorientation", function () 
     {
-        processGyro(event.alpha, event.beta, event.gamma);  
+      alert("hey");
+          processGyro(event.alpha, event.beta, event.gamma);  
     }, true);
     
     
@@ -318,18 +319,20 @@ function processGyro(alpha,beta,gamma)
 	document.getElementById("intro_text").innerHTML=beta;
 	document.getElementById("beta").innerHTML=beta;
 	document.getElementById("gamma").innerHTML =gamma;
-    
+    alert("ho");
     
         if (beta > 0) {
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x-=canvas.width*0.03 ;
         spaceShip.draw();
+            alert("moins");
         //weapon.draw();
     } 
     else if (beta < 0){
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*0.03;
         spaceShip.draw();
+        alert("plus");
         //weapon.draw();
     }
     
