@@ -310,8 +310,6 @@ if (window.DeviceOrientationEvent)
 function processGyro(alpha,beta,gamma)
 {
 	document.getElementById("intro_text").innerHTML=beta;
-	document.getElementById("beta").innerHTML=beta;
-	document.getElementById("gamma").innerHTML =gamma;
     alert("ho");
     
         if (beta > 0) {
