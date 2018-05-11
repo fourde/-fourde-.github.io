@@ -309,9 +309,9 @@ if (window.DeviceOrientationEvent)
 
 function processGyro(alpha,beta,gamma)
 {
-	document.getElementById("intro_text").innerHTML=beta;
+	
     
-    
+    document.getElementById("intro_text").innerHTML=spaceShip.x;
         if (beta > 3) {
   
             
