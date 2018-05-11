@@ -95,6 +95,41 @@
 
 /*  bouttons  */
 
+#fire_btn {
+    
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c71a1a), color-stop(1, #ff0000));
+	background:-moz-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-webkit-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-o-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-ms-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:linear-gradient(to bottom, #c71a1a 5%, #ff0000 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c71a1a', endColorstr='#ff0000',GradientType=0);
+	background-color:#c71a1a;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:3px solid #7a0c0c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 20%%;
+	font-weight:bold;
+	padding: 1% 2%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+
+    left : 78%;
+    top : 60%;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    width: 15%;
+    height: 12%;
+    
+}
+
+
 #high_score_btn {
     width : 10%;
     height : 8%;
@@ -141,7 +176,7 @@
 	padding:1% 2%;
 	text-decoration:none;
 	text-shadow:0px 1px 14px #000000;
-    text-align: right;
+    text-align: center;
     
         z-index : 1;
     position : absolute;
