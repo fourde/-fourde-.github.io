@@ -100,6 +100,7 @@ monster.draw();
         }
     }
     monster.draw();
+    processGyro(event.alpha, event.beta, event.gamma); 
     ID = setTimeout(updateMonster, frameRate);
     /*if (spaceShip.game==0){
         clearTimeout(ID);
@@ -301,14 +302,14 @@ if (window.DeviceOrientationEvent)
 {
     window.addEventListener("deviceorientation", function () 
     {
-        processGyro(event.alpha, event.beta, event.gamma);  
+      //  processGyro(event.alpha, event.beta, event.gamma);  
     }, true);
 } 
 
 
 function processGyro(alpha,beta,gamma)
 {
-	document.getElementById("intro_text").innerHTML=alpha;
+	document.getElementById("intro_text").innerHTML=beta;
 	document.getElementById("beta").innerHTML=beta;
 	document.getElementById("gamma").innerHTML =gamma;
     
