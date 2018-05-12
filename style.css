@@ -93,6 +93,34 @@
 }
 
 
+/****************************/
+/*******Login*********/
+/******************************/
+
+
+.login_class {
+    
+      color : #00F020;
+    font-weight : bold ;
+    font-size : 70%;
+    text-align: center;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 30%;
+    position: absolute;
+    
+}
+
+.login_value {
+    
+    color : red ;
+    left : 90%;
+    background-color: #00F020;
+    border-color : #00F020
+}
+
+
 /*  bouttons  */
 
 #fire_btn {

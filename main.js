@@ -281,19 +281,38 @@ function Star(x, y, size, velocity) {
 	this.size = size;
 }
 
-window.onload="draw()";
+// login area
 
-function draw () {
-   
-    /*var game_canva = document.getElementById("game_canvas");
-    var ctx = game_canva.getContext("2d");
+var login = {
     
-    ctx.fillText("tchoin tchoincthcoin");
-    ctx.fillStyle('#000000');
-     */
-
+    
+    display : function () {
+    alert("nanoun");
+     var login_form = document.createElement("form");
+        login_form.setAttribute("class","login_class");
+        login_form.setAttribute("name","form_name");
+        console.log(login_form);
+        
+    var login_label = document.createElement("label");
+        login_form.appendChild(login_label);
+        login_label.innerHTML = "Enter your Pseudo : ";
+        
+        
+        
+    var login_input = document.createElement("input");
+        login_input.setAttribute("name","login_value");
+        login_input.setAttribute("type", "text");
+        login_input.setAttribute("color","#3CBC8D");
+        login_input.setAttribute("class","login_value");
+    login_form.appendChild(login_input);
+        gameElement.appendChild(login_form);
+     
+}
     
 }
+
+
+
 
 
 
