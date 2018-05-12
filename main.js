@@ -286,6 +286,8 @@ function Star(x, y, size, velocity) {
 var login = {
     
     
+    pseudo : "hey",
+    
     display : function () {
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
@@ -319,14 +321,25 @@ var login = {
         
         
         gameElement.appendChild(login_form);
+
+        
 },
     
-    setlogin : function () {
+ 
+       setlogin : function () {
         
-        alert("tchoin");
+        this.pseudo = document.form_name.login_value.value;
+        gameElement.removeChild(gameElement.lastChild);
+        
+        var login_display = document.createElement("div");
+        login_display.setAttribute("id","pseudo_display");
+        gameElement.appendChild(login_display);
+           login_display.innerHTML = " Player : " + this.pseudo;
+           
+        
+           
         
     } 
-    
 }
 
 
