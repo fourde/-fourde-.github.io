@@ -315,7 +315,7 @@ var login = {
         
     var login_btn = document.createElement("button");
         login_btn.setAttribute("class","login_btn_class");
-        login_btn.innerHTML = "Hey";
+        login_btn.innerHTML = "Confirm Pseudo";
         login_btn.setAttribute("onclick","login.setlogin()");
         login_form.appendChild(login_btn);
         
