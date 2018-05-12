@@ -287,7 +287,6 @@ var login = {
     
     
     display : function () {
-    alert("nanoun");
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
         login_form.setAttribute("name","form_name");
@@ -299,15 +298,34 @@ var login = {
         
         
         
+        
+        login_form.addEventListener('submit', function(event){event.preventDefault();});
+        
+        
     var login_input = document.createElement("input");
         login_input.setAttribute("name","login_value");
         login_input.setAttribute("type", "text");
         login_input.setAttribute("color","#3CBC8D");
         login_input.setAttribute("class","login_value");
-    login_form.appendChild(login_input);
+        login_form.appendChild(login_input);
+        
+        
+        
+    var login_btn = document.createElement("button");
+        login_btn.setAttribute("class","login_btn_class");
+        login_btn.innerHTML = "Hey";
+        login_btn.setAttribute("onclick","login.setlogin()");
+        login_form.appendChild(login_btn);
+        
+        
         gameElement.appendChild(login_form);
-     
-}
+},
+    
+    setlogin : function () {
+        
+        alert("tchoin");
+        
+    } 
     
 }
 
