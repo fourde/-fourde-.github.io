@@ -22,7 +22,7 @@ var spaceShip  = {
         img.onload = function() {
             ctx.drawImage(img, 0, 60, 293, 272, xb, yb, 65, 40);
         };
-        img.src = "space-invader.jpg";
+        img.src = "space-invader.png";
     },
 };
 spaceShip.draw();
@@ -45,7 +45,7 @@ var monster  = {
                 ctx.drawImage(img, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
             }
         };
-        img.src = "mechant1.jpg";
+        img.src = "mechant1.png";
     },
 };
 
