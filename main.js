@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 var img = new Image();
 var ID;
 var frameRateMonster = 900;
-var frameRateWeapon = 500;
+var frameRateWeapon = 300;
 
 //OBJECT SPACESHIP
 
