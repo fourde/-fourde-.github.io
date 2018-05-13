@@ -1,3 +1,12 @@
+var canvas = document.querySelector("canvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var ctx = canvas.getContext("2d");
+var img = new Image();
+var ID;
+var frameRateMonster = 900;
+var frameRateWeapon = 50;
+
 //OBJECT SPACESHIP
 
 
@@ -198,7 +207,7 @@ function checkCollapse(number){
         }
     };
     img.src = "SpaceInvadersLaser.png";
-    ID = setTimeout(updateWeapon, frameRateWeapon);
+    ID = setTimeout(updateWeaponMonster, frameRateWeapon);
 })();
 
 function fire() {
