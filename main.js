@@ -83,14 +83,14 @@ var weapon ={
     x:spaceShip.x,
     y:spaceShip.y-canvas.height*0.05,
     tabWeapon: [],
-    draw: function () {
+  /*  draw: function () {
         var xb = this.x;
         var yb = this.y;
         img_weapon.onload = function() {
             ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
         img_weapon.src = "SpaceInvadersLaser.png";
-    }
+    } */
     
     /*drawMonsterWeapon: function () {
         var xb = this.x;
@@ -203,7 +203,7 @@ function updateWeapon() {
 //FUNCTION LOOP WEAPON MONSTER
 
 
-function updateWeaponMonster() {
+ function updateWeaponMonster() {
     img.onload = function() {
         for(var a=0; a<weapon.tabWeapon.length; a++){
             ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
@@ -215,7 +215,7 @@ function updateWeaponMonster() {
     };
     img.src = "SpaceInvadersLaser.png";
    var  monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
-}
+} 
 
 function fire() {
     
