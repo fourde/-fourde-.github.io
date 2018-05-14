@@ -4,8 +4,8 @@ canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 var img = new Image();
 var ID;
-var frameRateMonster = 900;
-var frameRateWeapon = 300;
+var frameRateMonster = 800;
+var frameRateWeapon = 500;
 
 //OBJECT SPACESHIP
 
@@ -283,13 +283,13 @@ var game = {
 
 
 var Starfield =  {
-	fps : 30,
+	fps : 50,
 	canvas : null,
     width :0,
     heigth : 0,
 	minVelocity : 10,
 	maxVelocity : 300,
-	nb_stars : 70,
+	nb_stars : 40,
     star_size : 3,
     stars : 0,
 	intervalId : 0,
@@ -432,6 +432,7 @@ var login = {
         
         gameElement.appendChild(login_form);
 
+        spaceShip.draw();
         
 },
     
