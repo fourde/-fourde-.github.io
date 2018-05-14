@@ -7,6 +7,15 @@ var ID;
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
 
+
+var gameElement = document.getElementById("game_area");
+var state_btn = document.getElementById("state_btn");
+
+
+// Interval variables
+var weapon_ID;
+var monster_weapon_ID;
+var monster_move_ID;
 //OBJECT SPACESHIP
 
 
@@ -98,7 +107,7 @@ weapon.draw();
 //LOOP MONSTRE
 
 
-(function updateMonster() {
+function updateMonster() {
     
         for (var i=0; i<monster.tabMonster.length;i++){
             ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
@@ -138,11 +147,11 @@ weapon.draw();
         }
     }
     monster.draw();
-    ID = setTimeout(updateMonster, frameRateMonster);
+    monster_move_ID = setTimeout(updateMonster, frameRateMonster);
     /*if (spaceShip.game==0){
         clearTimeout(ID);
     }*/
-})();
+}
 
 
 
@@ -178,7 +187,7 @@ function checkCollapse(number){
 
 //FUNCTION LOOP WEAPON
 
-(function updateWeapon() {
+function updateWeapon() {
     img.onload = function() {
         for(var a=0; a<weapon.tabWeapon.length; a++){
             ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
@@ -189,14 +198,14 @@ function checkCollapse(number){
         }
     };
     img.src = "SpaceInvadersLaser.png";
-    ID = setTimeout(updateWeapon, frameRateWeapon);
-})();
-
+     weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
+}
+ 
 
 //FUNCTION LOOP WEAPON MONSTER
 
 
-(function updateWeaponMonster() {
+function updateWeaponMonster() {
     img.onload = function() {
         for(var a=0; a<weapon.tabWeapon.length; a++){
             ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
@@ -207,8 +216,8 @@ function checkCollapse(number){
         }
     };
     img.src = "SpaceInvadersLaser.png";
-    ID = setTimeout(updateWeaponMonster, frameRateWeapon);
-})();
+   var  monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
+}
 
 function fire() {
     
@@ -219,11 +228,17 @@ function fire() {
 }
 
 
-var gameElement = document.getElementById("game_area");
+
+
+
 var game = {
     
      high_score_list : ["Kevin CHieze", "Kevin chieze", "celine ponton", "Guillaume Valette","Adele Bert","Jean-Yves"],
     
+    displaying_HS : false,
+    
+    running : false ,
+    login_set : false,
     
     load_high_score : function  () {
     
@@ -241,8 +256,8 @@ var game = {
         
 
 
-        if (displaying_HS==false) {
-            displaying_HS = true;
+        if (this.displaying_HS==false) {
+            this.displaying_HS = true;
             var highscore_area = document.createElement("div");
             gameElement.appendChild(highscore_area);
             highscore_area.setAttribute("class","highscore_class");
@@ -263,17 +278,49 @@ var game = {
             displaying_HS= false;
             
         }
-        
-        
-        
-        
-        
-        
-        
     },
     
     
+    pause : function () {
     
+    clearTimeout(weapon_ID );
+    clearTimeout(monster_weapon_ID );
+    clearTimeout(monster_move_ID );
+    
+  state_btn.style.backgroundColor = "#ffcc00"; 
+        
+    state_btn.innerHTML="Resume Game";
+        this.running = false;
+},
+    
+    resume : function () {
+        
+        weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
+        monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
+        monster_move_ID = setTimeout(updateMonster, frameRateMonster);
+    
+        state_btn.style.backgroundColor = "#00F020"; 
+        state_btn.innerHTML = "Pause Game";
+        this.running=true;
+    
+    },
+        
+    change_state : function () {
+    
+        if (this.login_set == false) {
+        } else {
+        
+            if ( this.running == false) 
+            {
+        
+                game.resume();
+            }
+            else if  ( this.running == true)
+            {
+                game.pause();
+            }
+        }
+},
 
     
 }
@@ -289,7 +336,7 @@ var Starfield =  {
     heigth : 0,
 	minVelocity : 10,
 	maxVelocity : 300,
-	nb_stars : 10,
+	nb_stars : 50,
     star_size : 3,
     stars : 0,
 	intervalId : 0,
@@ -399,6 +446,9 @@ var login = {
     pseudo : "hey",
     
     display : function () {
+        
+       game.pause();
+        
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
         login_form.setAttribute("name","form_name");
@@ -447,6 +497,9 @@ var login = {
         gameElement.appendChild(login_display);
            login_display.innerHTML = " Player : " + this.pseudo;
            
+           game.resume ();
+           game.login_set=true;
+
         
            
         
@@ -477,6 +530,10 @@ document.addEventListener("keydown", function (event) {
         weapon.tabWeapon.push({x:weapon.x, y:weapon.y});
     }
     
+    
+    if(keycode == 37 || keycode == 39 || keycode == 32) {
+    	e.preventDefault();
+    }
 });
 
 
