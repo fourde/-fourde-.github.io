@@ -2,10 +2,16 @@ var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
+
 var img_space_ship = new Image();
+
 var img_monster = new Image();
+
 var img_weapon = new Image();
-var ID;
+
+var img_monster_2 = new Image();
+
+
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
 
@@ -56,18 +62,24 @@ var monster  = {
         img_monster.onload = function() {
             for (var i=0; i<tabLength;i++){
                 ctx.drawImage(img_monster, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
+                
+                if( tabTest[i].vie == 2 ) {
+                    ctx.drawImage(img_monster_2, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
+                }
             }
         };
         img_monster.src = "mechant1.png";
+        img_monster_2.src = "mechant2.png";
     },
 };
 
 
-//INITIALSIATION LISTE MONSTER
+//INITIALSIATION LIST MONSTER
 
 for(var j=0; j<2; j++){
     for (var i=0; i<10;i++){
-        monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:1});
+        monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08,
+                vie:1});
         if (j==0) {
             monster.tabMonster[i].vie=2;
         }
