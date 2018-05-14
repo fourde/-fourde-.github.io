@@ -10,6 +10,8 @@ var frameRateMonster = 800;
 var frameRateWeapon = 100;
 
 
+var eat = new Audio("eat.mp3");
+
 var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
 
@@ -169,6 +171,7 @@ function checkCollapse(number){
     for(var i=0; i<monster.tabMonster.length; i++){
         if(weapon.tabWeapon[number].y<=monster.tabMonster[i].y){
             if(((weapon.tabWeapon[number].x)<=(monster.tabMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(monster.tabMonster[i].x))){
+                eat.play();
                 ctx.clearRect(weapon.tabWeapon[number].x, weapon.tabWeapon[number].y, 10, 40);
                 weapon.tabWeapon.splice(number,1);
                 monster.tabMonster[i].vie--;
