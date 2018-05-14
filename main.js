@@ -287,6 +287,13 @@ var game = {
     clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
     
+        
+        window.addEventListener("deviceorientation", function () 
+    {
+        processGyro(event.alpha, event.beta, event.gamma); 
+        
+    }, false);
+        
   state_btn.style.backgroundColor = "#ffcc00"; 
         
     state_btn.innerHTML="Resume Game";
@@ -299,8 +306,19 @@ var game = {
         monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
     
+        
+    window.addEventListener("deviceorientation", function () 
+    {
+        processGyro(event.alpha, event.beta, event.gamma); 
+        
+    }, true);
+        
         state_btn.style.backgroundColor = "#00F020"; 
         state_btn.innerHTML = "Pause Game";
+        
+        
+        
+        
         this.running=true;
     
     },
@@ -336,7 +354,7 @@ var Starfield =  {
     heigth : 0,
 	minVelocity : 10,
 	maxVelocity : 300,
-	nb_stars : 50,
+	nb_stars : 20,
     star_size : 3,
     stars : 0,
 	intervalId : 0,
