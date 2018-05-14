@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 var img = new Image();
 var ID;
 var frameRateMonster = 800;
-var frameRateWeapon = 500;
+var frameRateWeapon = 100;
 
 //OBJECT SPACESHIP
 
@@ -289,7 +289,7 @@ var Starfield =  {
     heigth : 0,
 	minVelocity : 10,
 	maxVelocity : 300,
-	nb_stars : 40,
+	nb_stars : 10,
     star_size : 3,
     stars : 0,
 	intervalId : 0,
