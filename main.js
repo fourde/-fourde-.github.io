@@ -2,7 +2,9 @@ var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
-var img = new Image();
+var img_space_ship = new Image();
+var img_monster = new Image();
+var img_weapon = new Image();
 var ID;
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
@@ -28,10 +30,10 @@ var spaceShip  = {
     draw: function () {
         var xb = this.x;
         var yb = this.y;
-        img.onload = function() {
-            ctx.drawImage(img, 0, 60, 293, 272, xb, yb, 65, 40);
+        img_space_ship.onload = function() {
+            ctx.drawImage(img_space_ship, 0, 60, 293, 272, xb, yb, 65, 40);
         };
-        img.src = "space-invader.png";
+        img_space_ship.src = "space-invader.png";
     },
 };
 spaceShip.draw();
@@ -49,12 +51,12 @@ var monster  = {
     draw: function () {
         var tabLength = this.tabMonster.length;
         var tabTest = this.tabMonster;
-        img.onload = function() {
+        img_monster.onload = function() {
             for (var i=0; i<tabLength;i++){
-                ctx.drawImage(img, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
+                ctx.drawImage(img_monster, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
             }
         };
-        img.src = "mechant1.png";
+        img_monster.src = "mechant1.png";
     },
 };
 
@@ -84,10 +86,10 @@ var weapon ={
     draw: function () {
         var xb = this.x;
         var yb = this.y;
-        img.onload = function() {
-            ctx.drawImage(img, 90, 0, 220, 383, xb, yb, 10, 40);
+        img_weapon.onload = function() {
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
-        img.src = "SpaceInvadersLaser.png";
+        img_weapon.src = "SpaceInvadersLaser.png";
     }
     
     /*drawMonsterWeapon: function () {
@@ -100,10 +102,6 @@ var weapon ={
     }*/
     
 }
-weapon.draw();
-
-
-
 //LOOP MONSTRE
 
 
@@ -188,16 +186,16 @@ function checkCollapse(number){
 //FUNCTION LOOP WEAPON
 
 function updateWeapon() {
-    img.onload = function() {
+    img_weapon.onload = function() {
         for(var a=0; a<weapon.tabWeapon.length; a++){
             ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
             weapon.tabWeapon[a].y-=canvas.height*0.05;
-            ctx.drawImage(img, 90, 0, 220, 383, weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
             checkCollapse(a);
             checkEdge(a);
         }
     };
-    img.src = "SpaceInvadersLaser.png";
+    img_weapon.src = "SpaceInvadersLaser.png";
      weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
 }
  
@@ -221,10 +219,11 @@ function updateWeaponMonster() {
 
 function fire() {
     
-    
+    if ( game.running != false) {
            weapon.y=(spaceShip.y-canvas.height*0.05);
         weapon.x=spaceShip.x;
         weapon.tabWeapon.push({x:weapon.x, y:weapon.y});
+    }
 }
 
 
@@ -258,9 +257,13 @@ var game = {
 
         if (this.displaying_HS==false) {
             this.displaying_HS = true;
+            this.pause();
+            alert("df");
             var highscore_area = document.createElement("div");
             gameElement.appendChild(highscore_area);
             highscore_area.setAttribute("class","highscore_class");
+            highscore_area.setAttribute("id","highscore_area");
+            highscore_area.setAttribute("name","highscore_area");
 
         
         
@@ -272,10 +275,14 @@ var game = {
                 highscore_area.innerHTML += "<br> <br>";
             }
         }
-        else {
-            
-                gameElement.removeChild(gameElement.lastChild);
+        else {  
+                var highscore_area = document.getElementById("highscore_area");
+                gameElement.removeChild(highscore_area);
             displaying_HS= false;
+            
+            
+            document.getElementById("pseudo_display").innerHTML = " Player : " + login.pseudo;
+            this.resume();
             
         }
     },
@@ -283,7 +290,7 @@ var game = {
     
     pause : function () {
     
-    clearTimeout(weapon_ID );
+    clearTimeout(weapon_ID);
     clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
     
@@ -325,7 +332,7 @@ var game = {
         
     change_state : function () {
     
-        if (this.login_set == false) {
+        if ((this.login_set == false) || (this.displaying_HS==true)){
         } else {
         
             if ( this.running == false) 
@@ -510,10 +517,10 @@ var login = {
         this.pseudo = document.form_name.login_value.value;
         gameElement.removeChild(gameElement.lastChild);
         
-        var login_display = document.createElement("div");
+       /* var login_display = document.createElement("div");
         login_display.setAttribute("id","pseudo_display");
-        gameElement.appendChild(login_display);
-           login_display.innerHTML = " Player : " + this.pseudo;
+        gameElement.appendChild(login_display); */
+         document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
            
            game.resume ();
            game.login_set=true;
