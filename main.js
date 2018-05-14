@@ -453,6 +453,31 @@ var login = {
 }
 
 
+// Moving function 
+
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "ArrowLeft") {
+        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        spaceShip.x-=canvas.width*0.03 ;
+        spaceShip.draw();
+        //weapon.draw();
+    } 
+    else if (event.key === "ArrowRight"){
+        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        spaceShip.x+= canvas.width*0.03;
+        spaceShip.draw();
+        //weapon.draw();
+    }
+    else if (event.key === "ArrowDown"){
+        //ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        weapon.y=(spaceShip.y-canvas.height*0.05);
+        weapon.x=spaceShip.x;
+        weapon.tabWeapon.push({x:weapon.x, y:weapon.y});
+    }
+    
+});
+
 
 
 
