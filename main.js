@@ -283,13 +283,13 @@ var game = {
 
 
 var Starfield =  {
-	fps : 60,
+	fps : 30,
 	canvas : null,
     width :0,
     heigth : 0,
 	minVelocity : 10,
 	maxVelocity : 300,
-	nb_stars : 200,
+	nb_stars : 70,
     star_size : 3,
     stars : 0,
 	intervalId : 0,
