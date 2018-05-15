@@ -273,7 +273,6 @@ var game = {
         if (this.displaying_HS==false) {
             this.displaying_HS = true;
             this.pause();
-            alert("df");
             var highscore_area = document.createElement("div");
             gameElement.appendChild(highscore_area);
             highscore_area.setAttribute("class","highscore_class");
@@ -611,7 +610,7 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -2){
         
-         if (spaceShip.x + canvas.width*((beta / 1000)*3) < window.width * 0,8 ) {
+         if (spaceShip.x + canvas.width*((beta / 1000)*3) < canvas.width ) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
