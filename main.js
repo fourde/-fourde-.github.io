@@ -649,7 +649,7 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -1.5){
         
-         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*3) < ((canvas.width *0.8) + (window.innerWidth *0.05) )) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*3) < ((canvas.width *0.93) )) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
