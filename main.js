@@ -557,9 +557,20 @@ document.addEventListener("keydown", function (event) {
         //weapon.draw();
     } 
     else if (event.key === "ArrowRight"){
-        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        
+        
+        if (spaceShip.x + canvas.width*0.03 < canvas.width ) {
+                
+              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*0.03;
         spaceShip.draw();
+            console.log(spaceShip.x);
+            }
+        
+        
+       /* ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        spaceShip.x+= canvas.width*0.03;
+        spaceShip.draw(); */
         //weapon.draw();
     }
     else if (event.key === "ArrowDown"){
@@ -610,7 +621,7 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -2){
         
-         if (spaceShip.x + canvas.width*((beta / 1000)*3) < canvas.width ) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*3) < canvas.width ) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
