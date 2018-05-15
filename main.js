@@ -503,7 +503,7 @@ var login = {
         
         // Be shure that the game did not work when the user put his pseudo
        game.pause();
-        
+        alert(window.innerHeight);
         // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");

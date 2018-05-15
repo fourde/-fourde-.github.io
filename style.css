@@ -15,7 +15,8 @@
 
 
 #game_canvas { 
-    width: 70%;
+  
+      width: 70%;
     height: 80%;
     align-content: center;
     left : 5%;
@@ -93,8 +94,8 @@
 #score_display {
     
      z-index : 2;
-    left : 1%;
-    top : 3%;
+    left : 0.7%;
+    top : 4%;
     font-family: Impact;
     text-shadow: 4px 0px 30px  green;
     font-weight: bold;
@@ -219,6 +220,7 @@
     position : absolute;
     display : flex;
     text-align: right;
+    font-weight: bold;
     
 }
 
@@ -232,6 +234,7 @@
     z-index : 1;
     position : absolute;
     display : flex;
+    font-weight: bold;
     
 }
 
@@ -244,6 +247,7 @@
     position : absolute;
     display : flex;
     text-align: right;
+    font-weight: bold;
 }
 
 #body {
