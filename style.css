@@ -80,15 +80,30 @@
 
 #pseudo_display {
     z-index : 2;
-    left : 0%;
-    top : 1%;
+    left : 0.5%;
+    top : 0.5%;
     font-family: Impact;
     text-shadow: 4px 0px 30px  green;
     font-weight: bold;
     color : #00F020;
-    font-size : 40%;
+    font-size : 80%;
+    
 }
 
+#score_display {
+    
+     z-index : 2;
+    left : 1%;
+    top : 1.8%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 60%;
+    position : absolute; 
+    display : flex;
+    
+}
 
 
 .highscore_class {

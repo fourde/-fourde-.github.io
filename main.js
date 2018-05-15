@@ -253,6 +253,7 @@ var game = {
     
     running : false ,
     login_set : false,
+    score :0,
     
     load_high_score : function  () {
     
