@@ -265,24 +265,27 @@ var game = {
         
         
     },
-    
+    // Show the high score on the screen
     show_high_score : function () {
         
 
-
+        // if the screen is not actully displayed
         if (this.displaying_HS==false) {
-            this.displaying_HS = true;
-            this.pause();
+            this.displaying_HS = true; // flag set if actually display
+            this.pause(); // pause the game
+            
+            // create the highscore area div
             var highscore_area = document.createElement("div");
-            gameElement.appendChild(highscore_area);
-            highscore_area.setAttribute("class","highscore_class");
+            gameElement.appendChild(highscore_area); // put it as child of the game area
+            highscore_area.setAttribute("class","highscore_class"); // set his atributes
             highscore_area.setAttribute("id","highscore_area");
             highscore_area.setAttribute("name","highscore_area");
 
         
-        
+            // title
             highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
         
+            
             for(var i=0;i<this.high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += this.high_score_list[i];
@@ -344,23 +347,25 @@ var game = {
     
     },
         
+    // Changing the state of the game
     change_state : function () {
     
+            //Don't work if the player didn't put his login or if the game display the high_score
         if ((this.login_set == false) || (this.displaying_HS==true)){
         } else {
         
+                // if the game is actually in pause, resume it 
             if ( this.running == false) 
             {
         
                 game.resume();
             }
-            else if  ( this.running == true)
+            else if  ( this.running == true) // if the game run, put it in pause
             {
                 game.pause();
             }
         }
 },
-
     
 }
 
@@ -477,32 +482,36 @@ function Star(x, y, size, velocity) {
 	this.size = size;
 }
 
-// login area
+// login object
 
 var login = {
     
     
     pseudo : "hey",
     
+    // first fonciton call by the game
     display : function () {
         
+        // Be shure that the game did not work when the user put his pseudo
        game.pause();
         
+        // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
         login_form.setAttribute("name","form_name");
         console.log(login_form);
         
+        // Add a label to the form
     var login_label = document.createElement("label");
         login_form.appendChild(login_label);
         login_label.innerHTML = "Enter your Pseudo : ";
         
         
         
-        
+        // be shure that we don't reset the web page when we submit the form
         login_form.addEventListener('submit', function(event){event.preventDefault();});
         
-        
+        // Create the input for the pseudo of the player
     var login_input = document.createElement("input");
         login_input.setAttribute("name","login_value");
         login_input.setAttribute("type", "text");
@@ -511,33 +520,38 @@ var login = {
         login_form.appendChild(login_input);
         
         
-        
+        // Create the submit buttun
     var login_btn = document.createElement("button");
         login_btn.setAttribute("class","login_btn_class");
         login_btn.innerHTML = "Confirm Pseudo";
         login_btn.setAttribute("onclick","login.setlogin()");
         login_form.appendChild(login_btn);
         
-        
+        // add the form to the game area
         gameElement.appendChild(login_form);
 
+        // Draw the spacesip and the monster in the back of the login area
         spaceShip.draw();
         
 },
     
- 
+        // take the value write on the form 
        setlogin : function () {
         
         this.pseudo = document.form_name.login_value.value;
+           
+        // remove the child for stop showing the form
         gameElement.removeChild(gameElement.lastChild);
         
-       /* var login_display = document.createElement("div");
-        login_display.setAttribute("id","pseudo_display");
-        gameElement.appendChild(login_display); */
+       
+           // Write the pseudo on the top of the sreen
          document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
            
-           game.resume ();
+           // remember that the pseudo is set
            game.login_set=true;
+           // Launch the game
+           game.resume ();
+           
 
         
            
@@ -605,6 +619,7 @@ function processGyro(alpha,beta,gamma)
 	
     
     document.getElementById("intro_text").innerHTML=beta;
+    document.getElementById("intro_text").innerHTML+="<br>"+spaceShip.x;
         if (beta > 2) {
   
             
