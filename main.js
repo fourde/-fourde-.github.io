@@ -15,6 +15,7 @@ var img_monster_2 = new Image();
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
 var ammo_delay =3000;
+var ammo_amount = 2 ;
 
 
 var touch = new Audio("touch.mp3");
@@ -223,7 +224,7 @@ function updateWeapon() {
 
 function new_ammo () {
     
-    game.ammo =game.ammo +3;
+    game.ammo =game.ammo +ammo_amount;
     ammoElement.innerHTML = "Ammo : "+game.ammo;
     new_ammo_ID = setTimeout(new_ammo,ammo_delay);
 }
@@ -270,9 +271,10 @@ var game = {
     
      high_score_list : ["Kevin CHieze", "Kevin chieze", "celine ponton", "Guillaume Valette","Adele Bert","Jean-Yves"],
     
-    displaying_HS : false,
+    
     
     running : false ,
+    HS_onscreeen : false,
     login_set : false,
     score :0,
     ammo : 10,
@@ -292,9 +294,12 @@ var game = {
     show_high_score : function () {
         
 
+           
         // if the screen is not actully displayed
-        if (this.displaying_HS==false) {
-            this.displaying_HS = true; // flag set if actually display
+        if (this.HS_onscreeen==false) {
+            
+            
+            this.HS_onscreeen = true; // flag set if actually display
             this.pause(); // pause the game
             
             // create the highscore area div
@@ -318,14 +323,26 @@ var game = {
         else {  
                 var highscore_area = document.getElementById("highscore_area");
                 gameElement.removeChild(highscore_area);
-            displaying_HS= false;
+            this.HS_onscreeen= false;
             
             
             document.getElementById("pseudo_display").innerHTML = " Player : " + login.pseudo;
-            this.resume();
+            this.change_state();
             
         }
     },
+    
+    
+   /* win : function () {
+        
+        this.pause();
+        var winElement = document.createElement("div");
+        gameElement.appendchild(winElement);
+        winElement.setAttribute("class","winning_class");
+        
+        
+    }, */
+    
     
     increase_score : function (point) 
     {
@@ -382,7 +399,7 @@ var game = {
     change_state : function () {
     
             //Don't work if the player didn't put his login or if the game display the high_score
-        if ((this.login_set == false) || (this.displaying_HS==true)){
+        if ((this.login_set == false) || (this.HS_onscreeen==true)){
         } else {
         
                 // if the game is actually in pause, resume it 
@@ -645,18 +662,12 @@ if (window.DeviceOrientationEvent)
 function processGyro(alpha,beta,gamma)
 {
 	
-    
-    document.getElementById("intro_text").innerHTML=beta;
-    document.getElementById("intro_text").innerHTML+="<br>"+spaceShip.x;
-    document.getElementById("intro_text").innerHTML+="<br>"+(spaceShip.x - canvas.width*((beta / 1000)*3));
-    document.getElementById("intro_text").innerHTML+="<br>"+(canvas.width*0.8 + window.innerWidth*0.05 );
-    document.getElementById("intro_text").innerHTML+="<br>"+(window.innerWidth);
-    
+   
         if (beta > 1.5) {
   
             
             
-            if (spaceShip.x - canvas.width*((beta / 1000)*2) > 0 ) {
+            if (spaceShip.x - canvas.width*((beta / 1000)*1.5) > 0 ) {
                 
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
        spaceShip.x-=canvas.width*((beta / 1000)*3) ;
@@ -668,7 +679,7 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -1.5){
         
-         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*2) < ((canvas.width *0.92) )) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*1.5) < ((canvas.width *0.92) )) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
