@@ -20,6 +20,7 @@ var eat = new Audio("eat.mp3");
 
 var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
+var scoreElement = document.getElementById("score_display");
 
 
 // Interval variables
@@ -187,6 +188,7 @@ function checkCollapse(number){
                 ctx.clearRect(weapon.tabWeapon[number].x, weapon.tabWeapon[number].y, 10, 40);
                 weapon.tabWeapon.splice(number,1);
                 monster.tabMonster[i].vie--;
+                game.increase_score(5);
                 //ctx.clearRect(weapon.tabWeapon[number].x, weapon.tabWeapon[number].y, 10, 40);
                 //ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
                 if(monster.tabMonster[i].vie==0){
@@ -305,6 +307,12 @@ var game = {
         }
     },
     
+    increase_score : function (point) 
+    {
+        this.score += point ;
+        scoreElement.innerHTML = " Score :"+ this.score;
+        
+    },
     
     pause : function () {
     
