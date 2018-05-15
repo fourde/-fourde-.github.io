@@ -620,6 +620,7 @@ function processGyro(alpha,beta,gamma)
     
     document.getElementById("intro_text").innerHTML=beta;
     document.getElementById("intro_text").innerHTML+="<br>"+spaceShip.x;
+    document.getElementById("intro_text").innerHTML+="<br>"+(spaceShip.x - canvas.width*((beta / 1000)*3));
         if (beta > 2) {
   
             
