@@ -503,7 +503,7 @@ var login = {
         
         // Be shure that the game did not work when the user put his pseudo
        game.pause();
-        alert(window.innerHeight);
+        alert(window.innerHeight *0.8);
         // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
@@ -631,6 +631,8 @@ function processGyro(alpha,beta,gamma)
     document.getElementById("intro_text").innerHTML+="<br>"+spaceShip.x;
     document.getElementById("intro_text").innerHTML+="<br>"+(spaceShip.x - canvas.width*((beta / 1000)*3));
     document.getElementById("intro_text").innerHTML+="<br>"+(canvas.width*0.8 + window.innerWidth*0.05 );
+    document.getElementById("intro_text").innerHTML+="<br>"+(window.innerWidth);
+    
         if (beta > 1.5) {
   
             
