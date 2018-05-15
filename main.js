@@ -622,7 +622,7 @@ function processGyro(alpha,beta,gamma)
     document.getElementById("intro_text").innerHTML+="<br>"+spaceShip.x;
     document.getElementById("intro_text").innerHTML+="<br>"+(spaceShip.x - canvas.width*((beta / 1000)*3));
     document.getElementById("intro_text").innerHTML+="<br>"+(canvas.width*0.8);
-        if (beta > 2) {
+        if (beta > 1.5) {
   
             
             
@@ -636,7 +636,7 @@ function processGyro(alpha,beta,gamma)
             
         //weapon.draw();
     } 
-    else if (beta < -2){
+    else if (beta < -1.5){
         
          if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*3) < canvas.width *0.8 ) {
         
