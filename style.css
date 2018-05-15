@@ -63,6 +63,22 @@
 }
 
 
+#ammo_display {
+    
+       z-index : 2;
+    position : absolute; 
+    display : flex;
+    left : 78%;
+    top : 80%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 18%;
+    
+    
+}
+
 
 #intro_text {
     

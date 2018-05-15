@@ -14,6 +14,7 @@ var img_monster_2 = new Image();
 
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
+var ammo_delay =3000;
 
 
 var touch = new Audio("touch.mp3");
@@ -21,12 +22,14 @@ var touch = new Audio("touch.mp3");
 var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
 var scoreElement = document.getElementById("score_display");
+var ammoElement = document.getElementById("ammo_display");
 
 
 // Interval variables
 var weapon_ID;
 var monster_weapon_ID;
 var monster_move_ID;
+var new_ammo_ID;
 //OBJECT SPACESHIP
 
 
@@ -194,6 +197,7 @@ function checkCollapse(number){
                 if(monster.tabMonster[i].vie==0){
                     ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
                     monster.tabMonster.splice(i,1);
+                    game.increase_score(10);
                 }
             }
         }
@@ -217,6 +221,13 @@ function updateWeapon() {
 }
  
 
+function new_ammo () {
+    
+    game.ammo =game.ammo +3;
+    ammoElement.innerHTML = "Ammo : "+game.ammo;
+    new_ammo_ID = setTimeout(new_ammo,ammo_delay);
+}
+
 //FUNCTION LOOP WEAPON MONSTER
 
 
@@ -231,15 +242,23 @@ function updateWeapon() {
         }
     };
     img.src = "SpaceInvadersLaser.png";
-   var  monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
+     monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
 } 
 
 function fire() {
     
     if ( game.running != false) {
-           weapon.y=(spaceShip.y-canvas.height*0.05);
-        weapon.x=spaceShip.x;
-        weapon.tabWeapon.push({x:weapon.x, y:weapon.y});
+        
+        if (game.ammo > 0) {
+            weapon.y=(spaceShip.y-canvas.height*0.05);
+            weapon.x=spaceShip.x;
+            weapon.tabWeapon.push({x:weapon.x, y:weapon.y}); 
+            game.ammo--;
+            console.log(game.ammo);
+            ammoElement.innerHTML = " Ammo : "+game.ammo;
+            
+        }
+
     }
 }
 
@@ -256,6 +275,7 @@ var game = {
     running : false ,
     login_set : false,
     score :0,
+    ammo : 10,
     
     load_high_score : function  () {
     
@@ -319,6 +339,7 @@ var game = {
     clearTimeout(weapon_ID);
     clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
+    clearTimeout(new_ammo_ID);
     
         
         window.addEventListener("deviceorientation", function () 
@@ -338,6 +359,7 @@ var game = {
         weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
         monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
+        new_ammo_ID = setTimeout(new_ammo,ammo_delay);
     
         
     window.addEventListener("deviceorientation", function () 
@@ -503,7 +525,6 @@ var login = {
         
         // Be shure that the game did not work when the user put his pseudo
        game.pause();
-        alert(window.innerHeight *0.8);
         // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
@@ -597,10 +618,8 @@ document.addEventListener("keydown", function (event) {
         //weapon.draw();
     }
     else if (event.key === "ArrowDown"){
-        //ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        weapon.y=(spaceShip.y-canvas.height*0.05);
-        weapon.x=spaceShip.x;
-        weapon.tabWeapon.push({x:weapon.x, y:weapon.y});
+        
+        fire();
     }
     
     
@@ -637,7 +656,7 @@ function processGyro(alpha,beta,gamma)
   
             
             
-            if (spaceShip.x - canvas.width*((beta / 1000)*3) > 0 ) {
+            if (spaceShip.x - canvas.width*((beta / 1000)*2) > 0 ) {
                 
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
        spaceShip.x-=canvas.width*((beta / 1000)*3) ;
@@ -649,7 +668,7 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -1.5){
         
-         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*3) < ((canvas.width *0.93) )) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*2) < ((canvas.width *0.92) )) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
