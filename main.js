@@ -670,7 +670,7 @@ function processGyro(alpha,beta,gamma)
             if (spaceShip.x - canvas.width*((beta / 1000)) > 0 ) {
                 
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-       spaceShip.x-=canvas.width*((beta / 1000)*3) ;
+       spaceShip.x-=canvas.width*((beta / 1000)) ;
         spaceShip.draw(); 
             }
      
@@ -682,7 +682,7 @@ function processGyro(alpha,beta,gamma)
          if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)) < ((canvas.width *0.92) )) {
         
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*3);
+        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000));
         spaceShip.draw();
              
          }
