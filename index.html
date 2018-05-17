@@ -45,7 +45,7 @@
     <body onload="login.display()">
         
         <!-- Title -->
-        <h5 align ="center" id ="title_ju"> Space JU 2018 version V 1.12_v2 </h5>    
+        <h5 align ="center" id ="title_ju"> Space JU 2018 version V 1.12_v2 </h5>  
         <div id = star_background  >   </div>
         
         <!-- Game canvas -->
@@ -59,8 +59,11 @@
         <button class = "menu_btn" id="high_score_btn"  onclick = "game.show_high_score()"> High score </button>
         <button class = "menu_btn" id="about_btn"  > About </button>
         <button class = "menu_btn" id="state_btn" onclick="game.change_state()" > Pause Game </button>
-        <button id=fire_btn onclick="fire()"> FIRE </button>
-        <div id = ammo_display> Ammo : 10</div>
+        <button id= "fire_btn" onclick="fire()"> FIRE </button>
+        <div id = "ammo_display"> Ammo : 10
+        
+        <progress max ="15" value = "12"  background-color = "red" >  </progress>
+        </div>
         
         <div id= "intro_text" > Hey welcome to SpaceJu 2018 version <br> More explination will come after !  
         </div>

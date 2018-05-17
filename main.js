@@ -416,6 +416,7 @@ var game = {
 /*          Level Score function      */
 /*************************************/
     
+    
     increase_score : function (point) 
     {
         this.score += point ;
@@ -689,6 +690,10 @@ var login = {
         welcome.setAttribute("top","0%");
         welcome.innerHTML= "<h2> Welcome </h2> <br><h4> to </h4> <br> <h1> SpaceJU 2018 </h1>";
         
+    
+        
+        
+        
         // add the welcome
         gameElement.appendChild(welcome);
         // add the form to the game area
@@ -715,7 +720,7 @@ var login = {
            // Launch the game
            game.resume ();
     } 
-}
+}   
 
 
 // Moving function 
