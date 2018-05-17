@@ -46,11 +46,33 @@
 #ammo_bar {
     
     
-    background-color: aqua;
+
     height: 13%;
         
 
     
+}
+
+
+progress {
+/* style rules */
+        color : red;
+    background-color: red;
+}
+progress::-webkit-progress-bar {
+/* style rules */
+
+    background-color: black;
+    border : 3px;
+    border-color :green;
+}
+progress::-webkit-progress-value {
+/* style rules */
+    background-color: red;
+} 
+progress::-moz-progress-bar {
+        color : red;
+/* style rules */
 }
 
 
