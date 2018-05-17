@@ -18,6 +18,7 @@ var frameRateWeaponMonster = 220;
 var positionSpaceShipIniX = [];
 var ammo_delay =3000;
 var ammo_amount = 2 ;
+var max_ammo = 10;
 
 
 var touch = new Audio("touch.mp3");
@@ -26,7 +27,9 @@ var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
 var scoreElement = document.getElementById("score_display");
 var ammoElement = document.getElementById("ammo_display");
+var ammo_bar = document.getElementById("ammo_bar");
 
+ammo_bar.setAttribute("max",max_ammo);
 
 // Interval variables
 var weapon_ID;
@@ -297,9 +300,16 @@ function updateWeapon() {
 
 function new_ammo () {
     
-    game.ammo =game.ammo +ammo_amount;
+    
+    if (game.ammo < max_ammo) 
+        {
+             game.ammo =game.ammo +ammo_amount;
     ammoElement.innerHTML = "Ammo : "+game.ammo;
     new_ammo_ID = setTimeout(new_ammo,ammo_delay);
+            
+       //     ammo_bar.setAttribute("value",game.ammo);
+        }
+
 }
 
 //FUNCTION LOOP WEAPON MONSTER
@@ -330,6 +340,7 @@ function fire() {
             game.ammo--;
             console.log(game.ammo);
             ammoElement.innerHTML = " Ammo : "+game.ammo;
+          //  ammo_bar.setAttribute("value",game.ammo);
             
         }
 
@@ -656,6 +667,7 @@ var login = {
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
         login_form.setAttribute("name","form_name");
+        login_form.setAttribute("id","login_form");
         console.log(login_form);
         
         // Add a label to the form
@@ -688,6 +700,7 @@ var login = {
     var welcome = document.createElement("div");
         welcome.setAttribute("id","welcome");
         welcome.setAttribute("top","0%");
+        welcome.setAttribute("id","welcome");
         welcome.innerHTML= "<h2> Welcome </h2> <br><h4> to </h4> <br> <h1> SpaceJU 2018 </h1>";
         
     
@@ -709,7 +722,8 @@ var login = {
         this.pseudo = document.form_name.login_value.value;
            
         // remove the child for stop showing the form
-        gameElement.removeChild(gameElement.lastChild);
+        gameElement.removeChild(login_form);
+        gameElement.removeChild(welcome);
         
        
            // Write the pseudo on the top of the sreen
