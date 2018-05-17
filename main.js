@@ -438,6 +438,21 @@ var game = {
         
     },
     
+    
+    win : function () {
+        
+        var display_winning = document.createElement("div");
+        
+        display_winning.setAttribute("id","win_screen");
+        gameElement.appendChild(display_winning);
+        
+        display_winning.innerHTML = "<h1> Congrat's  ! <br> You destroy all the invaders  </h1>";
+        display_winning.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
+        
+        
+    },
+    
+    
 /*****************************************/
 /*              State function            */
 /****************************************/
@@ -569,7 +584,7 @@ var Starfield =  {
 		buff_stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*this.star_size+1,
 		 (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
 	}
-        //put the buffer on the object
+        //put the object on the buffer
 	this.stars = buff_stars;
 
 	var self = this;
@@ -613,11 +628,10 @@ var Starfield =  {
 		ctx.fillRect(star.x, star.y, star.size, star.size);
 	}
 }
-    
 
 }
 
-
+// Create the star
 function Star(x, y, size, velocity) {
 	this.x = x;
 	this.y = y; 
@@ -630,7 +644,7 @@ function Star(x, y, size, velocity) {
 var login = {
     
     
-    pseudo : "hey",
+    pseudo : "",
     
     // first fonciton call by the game
     display : function () {
@@ -669,6 +683,14 @@ var login = {
         login_btn.setAttribute("onclick","login.setlogin()");
         login_form.appendChild(login_btn);
         
+        
+    var welcome = document.createElement("div");
+        welcome.setAttribute("id","welcome");
+        welcome.setAttribute("top","0%");
+        welcome.innerHTML= "<h2> Welcome </h2> <br><h4> to </h4> <br> <h1> SpaceJU 2018 </h1>";
+        
+        // add the welcome
+        gameElement.appendChild(welcome);
         // add the form to the game area
         gameElement.appendChild(login_form);
 
@@ -676,7 +698,6 @@ var login = {
         spaceShip.draw();
         
 },
-    
         // take the value write on the form 
        setlogin : function () {
         
@@ -693,11 +714,6 @@ var login = {
            game.login_set=true;
            // Launch the game
            game.resume ();
-           
-
-        
-           
-        
     } 
 }
 
@@ -757,10 +773,10 @@ function processGyro(alpha,beta,gamma)
   
             
             
-            if (spaceShip.x - canvas.width*((beta / 1000)) > 0 ) {
+            if (spaceShip.x - canvas.width*((beta / 1000)*1.1) > 0 ) {
                 spaceShip.direction=-1;
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-       spaceShip.x-=canvas.width*((beta / 1000)) ;
+       spaceShip.x-=canvas.width*((beta / 1000)*1.1) ;
         spaceShip.draw(); 
             }
      
@@ -769,10 +785,10 @@ function processGyro(alpha,beta,gamma)
     } 
     else if (beta < -1.5){
         
-         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)) < ((canvas.width *0.92) )) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*1.1) < ((canvas.width *0.92) )) {
         spaceShip.direction=1;
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000));
+        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*1.1);
         spaceShip.draw();
              
          }
