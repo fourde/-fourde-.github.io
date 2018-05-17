@@ -46,8 +46,13 @@
 #ammo_bar {
     
     
-
-    height: 13%;
+    position: absolute;
+    z-index : 2;
+    display: flex;
+    
+    top : 120%;
+    
+    height: 130%;
         
 
     
@@ -69,6 +74,8 @@ progress::-webkit-progress-bar {
 progress::-webkit-progress-value {
 /* style rules */
     background-color: red;
+     border : 3px;
+    border-color :green;
 } 
 progress::-moz-progress-bar {
         color : red;
