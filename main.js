@@ -14,6 +14,8 @@ var img_monster_2 = new Image();
 
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
+var frameRateWeaponMonster = 220;
+var positionSpaceShipIniX = [];
 var ammo_delay =3000;
 var ammo_amount = 2 ;
 
@@ -30,6 +32,7 @@ var ammoElement = document.getElementById("ammo_display");
 var weapon_ID;
 var monster_weapon_ID;
 var monster_move_ID;
+var IDWeaponM;
 var new_ammo_ID;
 //OBJECT SPACESHIP
 
@@ -99,28 +102,34 @@ monster.draw();
 
 var weapon ={
     number:1000,
+    xM:monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].x,
+    yM:monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].y,
     x:spaceShip.x,
     y:spaceShip.y-canvas.height*0.05,
     tabWeapon: [],
-  /*  draw: function () {
+    tabWeaponMonster: [],
+    
+    draw: function () {
         var xb = this.x;
         var yb = this.y;
         img_weapon.onload = function() {
-            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
-        };
-        img_weapon.src = "SpaceInvadersLaser.png";
-    } */
-    
-    /*drawMonsterWeapon: function () {
-        var xb = this.x;
-        var yb = this.y;
-        img.onload = function() {
             ctx.drawImage(img, 90, 0, 220, 383, xb, yb, 10, 40);
         };
-        img.src = "SpaceInvadersLaser.png";
-    }*/
+        img_weapon.src = "SpaceInvadersLaser.png";
+    },
+    
+    drawMonsterWeapon: function () {
+        var xb = this.xM;
+        var yb = this.yM;
+        img_weapon.onload = function() {
+            ctx.drawImage(img, 90, 0, 220, 383, xM, yM, 10, 40);
+        };
+        img_weapon.src = "SpaceInvadersLaser.png";
+    }
     
 }
+weapon.draw();
+weapon.drawMonsterWeapon();
 //LOOP MONSTRE
 
 
@@ -162,8 +171,17 @@ function updateMonster() {
                 monster.tabMonster[j].y+=canvas.height*0.05;
             }
         }
+        
+        
     }
     monster.draw();
+    
+    weapon.yM=(monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].y+canvas.height*0.02);
+    weapon.xM=monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].x;
+    weapon.tabWeaponMonster.push({x:weapon.xM, y:weapon.yM, xTrajectoire: weapon.xM, yTrajectoire: weapon.yM, weaponAlreadyTaken: 1});
+    
+    positionSpaceShipIniX.push(spaceShip.x);    
+    
     monster_move_ID = setTimeout(updateMonster, frameRateMonster);
     /*if (spaceShip.game==0){
         clearTimeout(ID);
@@ -205,6 +223,44 @@ function checkCollapse(number){
     }
 }
 
+
+// TRAJECTOIRE MISSILE
+
+function trajectoire(number) {
+    var pas;
+    var quotient;
+    //console.log(positionSpaceShipIniX);
+    if (spaceShip.direction == -1){
+        
+        if (weapon.tabWeaponMonster[number].weaponAlreadyTaken == 1) {
+            
+            quotient = (canvas.height*0.8-weapon.tabWeaponMonster[number].yTrajectoire)/0.03;
+            pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire-canvas.width*0.06)/quotient;
+            return(pas);
+        } else {
+            quotient = (canvas.height*0.8-weapon.tabWeaponMonster[number].yTrajectoire)/0.03;
+            pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire)/quotient;
+            return(pas);
+        }
+    }
+    
+    else if (spaceShip.direction == +1){
+        
+        if (weapon.tabWeaponMonster[number].weaponAlreadyTaken == 1) {
+        
+            quotient = (canvas.height*0.8-weapon.tabWeaponMonster[number].yTrajectoire)/0.03;
+            pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire+canvas.width*0.06)/quotient;
+            return(pas);
+        } else {
+            quotient = (canvas.height*0.8-weapon.tabWeaponMonster[number].yTrajectoire)/0.03;
+            pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire)/quotient;
+            return(pas);
+        }
+    }
+}
+
+
+
 //FUNCTION LOOP WEAPON
 
 function updateWeapon() {
@@ -222,6 +278,23 @@ function updateWeapon() {
 }
  
 
+(function updateWeaponMonster() {
+    img_weapon.onload = function() {
+        for(var a=0; a<weapon.tabWeaponMonster.length; a++){
+            ctx.clearRect(weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
+            weapon.tabWeaponMonster[a].y+=canvas.height*0.03;
+            weapon.tabWeaponMonster[a].x+=canvas.width*trajectoire(a);
+            weapon.tabWeaponMonster[a].weaponAlreadyTaken=0;
+            ctx.drawImage(img, 90, 0, 220, 383, weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
+            //checkCollapse(a);
+        }
+    };
+    img_weapon.src = "SpaceInvadersLaser.png";
+    IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
+}) ();
+
+
+
 function new_ammo () {
     
     game.ammo =game.ammo +ammo_amount;
@@ -233,7 +306,7 @@ function new_ammo () {
 
 
  function updateWeaponMonster() {
-    img.onload = function() {
+    img_weapon.onload = function() {
         for(var a=0; a<weapon.tabWeapon.length; a++){
             ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
             weapon.tabWeapon[a].y-=canvas.height*0.05;
@@ -242,7 +315,7 @@ function new_ammo () {
             //checkEdge(a);
         }
     };
-    img.src = "SpaceInvadersLaser.png";
+    img_weapon.src = "SpaceInvadersLaser.png";
      monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
 } 
 
@@ -253,7 +326,7 @@ function fire() {
         if (game.ammo > 0) {
             weapon.y=(spaceShip.y-canvas.height*0.05);
             weapon.x=spaceShip.x;
-            weapon.tabWeapon.push({x:weapon.x, y:weapon.y}); 
+             weapon.tabWeapon.push({x:weapon.x, y:weapon.y, xTrajectoire: weapon.x});
             game.ammo--;
             console.log(game.ammo);
             ammoElement.innerHTML = " Ammo : "+game.ammo;
@@ -278,7 +351,13 @@ var game = {
     login_set : false,
     score :0,
     ammo : 10,
+    level : 1,
     
+    
+    
+/*************************************/
+/*          High score function       */
+/************************************/
     load_high_score : function  () {
     
     this.high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
@@ -333,16 +412,9 @@ var game = {
     },
     
     
-   /* win : function () {
-        
-        this.pause();
-        var winElement = document.createElement("div");
-        gameElement.appendchild(winElement);
-        winElement.setAttribute("class","winning_class");
-        
-        
-    }, */
-    
+/**************************************/
+/*          Level Score function      */
+/*************************************/
     
     increase_score : function (point) 
     {
@@ -351,12 +423,34 @@ var game = {
         
     },
     
+    
+    check_level : function ()
+    {
+    if (monster.tabMonster.length==0) 
+        {
+            this.level++;
+        }
+        
+    },
+    
+    change_level : function () 
+    {
+        
+    },
+    
+/*****************************************/
+/*              State function            */
+/****************************************/
+    
+    // Pause the game
     pause : function () {
     
+        //vPause all the timers
     clearTimeout(weapon_ID);
     clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
     clearTimeout(new_ammo_ID);
+    clearTimeout(IDWeaponM);
     
         
         window.addEventListener("deviceorientation", function () 
@@ -377,6 +471,7 @@ var game = {
         monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
         new_ammo_ID = setTimeout(new_ammo,ammo_delay);
+        IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
     
         
     window.addEventListener("deviceorientation", function () 
@@ -612,6 +707,7 @@ var login = {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
+        spaceShip.direction=-1;
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x-=canvas.width*0.03 ;
         spaceShip.draw();
@@ -621,18 +717,12 @@ document.addEventListener("keydown", function (event) {
         
         
         if (spaceShip.x + canvas.width*0.03 < canvas.width ) {
-                
+                spaceShip.direction=1;
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*0.03;
         spaceShip.draw();
             console.log(spaceShip.x);
             }
-        
-        
-       /* ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*0.03;
-        spaceShip.draw(); */
-        //weapon.draw();
     }
     else if (event.key === "ArrowDown"){
         
@@ -668,7 +758,7 @@ function processGyro(alpha,beta,gamma)
             
             
             if (spaceShip.x - canvas.width*((beta / 1000)) > 0 ) {
-                
+                spaceShip.direction=-1;
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
        spaceShip.x-=canvas.width*((beta / 1000)) ;
         spaceShip.draw(); 
@@ -680,7 +770,7 @@ function processGyro(alpha,beta,gamma)
     else if (beta < -1.5){
         
          if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)) < ((canvas.width *0.92) )) {
-        
+        spaceShip.direction=1;
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x+= canvas.width*((Math.abs(beta) / 1000));
         spaceShip.draw();
