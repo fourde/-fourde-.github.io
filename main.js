@@ -28,9 +28,9 @@ var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
 var scoreElement = document.getElementById("score_display");
 var ammoElement = document.getElementById("ammo_display");
-var ammo_bar = document.getElementById("ammo_bar");
+//var ammo_bar = document.getElementById("ammo_bar");
 
-ammo_bar.setAttribute("max",max_ammo);
+//ammo_bar.setAttribute("max",max_ammo);
 
 // Interval variables
 var weapon_ID;
@@ -353,7 +353,7 @@ function new_ammo () {
     ammoElement.innerHTML = "Ammo : "+game.ammo;
     new_ammo_ID = setTimeout(new_ammo,ammo_delay);
             
-       //     ammo_bar.setAttribute("value",game.ammo);
+         //   ammo_bar.setAttribute("value",game.ammo);
         }
 
 }
@@ -388,6 +388,7 @@ function fire() {
             game.ammo--;
             console.log(game.ammo);
             ammoElement.innerHTML = " Ammo : "+game.ammo;
+         //   ammo_bar.setAttribute("value",game.ammo);
             
         }
 
