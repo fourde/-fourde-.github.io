@@ -12,6 +12,7 @@ var img_weapon = new Image();
 var img_monster_2 = new Image();
 
 
+var bool = 1;
 var frameRateMonster = 800;
 var frameRateWeapon = 100;
 var frameRateWeaponMonster = 220;
@@ -37,6 +38,7 @@ var monster_weapon_ID;
 var monster_move_ID;
 var IDWeaponM;
 var new_ammo_ID;
+
 //OBJECT SPACESHIP
 
 
@@ -62,14 +64,19 @@ spaceShip.draw();
 
 
 var monster  = {
+    niveau : 1,
     number: 30,
     x: canvas.width*0.2,
     y: canvas.height*0.07,
     direction: 1,
     tabMonster:[],
+    tabMonsterNiv2: [],
+    tabMonsterNiv3: [],
     draw: function () {
-        var tabLength = this.tabMonster.length;
-        var tabTest = this.tabMonster;
+        var listeMonster = level();
+        var tabLength = listeMonster.length;
+        var tabTest = listeMonster;
+        
         img_monster.onload = function() {
             for (var i=0; i<tabLength;i++){
                 ctx.drawImage(img_monster, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
@@ -85,20 +92,44 @@ var monster  = {
 };
 
 
-//INITIALSIATION LIST MONSTER
+//INITIALSIATION OF MONSTER LIST 
 
 for(var j=0; j<2; j++){
     for (var i=0; i<10;i++){
-        monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08,
-                vie:1});
+        monster.tabMonster.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:1});
+        monster.tabMonsterNiv2.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:2});
+        monster.tabMonsterNiv3.push({x: monster.x+i*canvas.width*0.06, y:monster.y+j*canvas.height*0.08, vie:3});
+        if (monster.niveau == 3){
+            
+        }
         if (j==0) {
             monster.tabMonster[i].vie=2;
         }
     }
 }
+if (monster.niveau == 3){
+    for (var i=0; i<10;i++){
+        monster.tabMonsterNiv3.push({x: monster.x+i*canvas.width*0.06, y:monster.y+2*canvas.height*0.08, vie:3});
+    }
+}
 console.log(monster.tabMonster);
 monster.draw();
 
+
+
+//FUNCTION LEVEL
+
+function level(){
+    if (monster.niveau == 1) {
+        return (monster.tabMonster);
+    }
+    else if (monster.niveau == 2) {
+        return (monster.tabMonsterNiv2);
+    }
+    else if (monster.niveau == 3) {
+        return (monster.tabMonsterNiv3);
+    }
+}
 
 //OBJET MISSILE
 
@@ -116,7 +147,7 @@ var weapon ={
         var xb = this.x;
         var yb = this.y;
         img_weapon.onload = function() {
-            ctx.drawImage(img, 90, 0, 220, 383, xb, yb, 10, 40);
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
         img_weapon.src = "SpaceInvadersLaser.png";
     },
@@ -125,53 +156,55 @@ var weapon ={
         var xb = this.xM;
         var yb = this.yM;
         img_weapon.onload = function() {
-            ctx.drawImage(img, 90, 0, 220, 383, xM, yM, 10, 40);
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
         img_weapon.src = "SpaceInvadersLaser.png";
     }
     
 }
-weapon.draw();
-weapon.drawMonsterWeapon();
+//weapon.drawMonsterWeapon();
+
 //LOOP MONSTRE
 
 
 function updateMonster() {
     
-        for (var i=0; i<monster.tabMonster.length;i++){
-            ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
+    var listeMonster = level();
+    
+        for (var i=0; i<listeMonster.length;i++){
+            ctx.clearRect(listeMonster[i].x, listeMonster[i].y, 65, 40);
         }
     
     if(monster.direction==1){
         
-        if(monster.tabMonster[0].x<canvas.width*0.35){
+        if(listeMonster[0].x<canvas.width*0.35){
             
-            for(var j=0; j<monster.tabMonster.length; j++){
-                monster.tabMonster[j].x+=canvas.width*0.03;
+            for(var j=0; j<listeMonster.length; j++){
+                listeMonster[j].x+=canvas.width*0.03;
             }
             
         } else{
             
             monster.direction=-1;
-            for(var j=0; j<monster.tabMonster.length; j++){
-                monster.tabMonster[j].y+=canvas.height*0.05;
+            for(var j=0; j<listeMonster.length; j++){
+                listeMonster[j].y+=canvas.height*0.05;
             }
         }
     }
     
     else if(monster.direction==-1){
         
-        if(monster.tabMonster[0].x>canvas.width*0.07){
+        if(listeMonster[0].x>canvas.width*0.07){
             
-            for(var j=0; j<monster.tabMonster.length; j++){
-                monster.tabMonster[j].x-=canvas.width*0.03;
+            for(var j=0; j<listeMonster.length; j++){
+                listeMonster[j].x-=canvas.width*0.03;
             }
             
         } else{
             
             monster.direction=1;
-            for(var j=0; j<monster.tabMonster.length; j++){
-                monster.tabMonster[j].y+=canvas.height*0.05;
+            for(var j=0; j<listeMonster.length; j++){
+                listeMonster[j].y+=canvas.height*0.05;
             }
         }
         
@@ -179,8 +212,10 @@ function updateMonster() {
     }
     monster.draw();
     
-    weapon.yM=(monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].y+canvas.height*0.02);
-    weapon.xM=monster.tabMonster[Math.floor(Math.random()*monster.tabMonster.length)].x;
+    weapon.yM=(listeMonster[Math.floor(Math.random()*listeMonster.length)].y+canvas.height*0.02);
+    
+    weapon.xM=listeMonster[Math.floor(Math.random()*listeMonster.length)].x;
+    
     weapon.tabWeaponMonster.push({x:weapon.xM, y:weapon.yM, xTrajectoire: weapon.xM, yTrajectoire: weapon.yM, weaponAlreadyTaken: 1});
     
     positionSpaceShipIniX.push(spaceShip.x);    
@@ -206,25 +241,51 @@ function checkEdge(number){
 
 
 function checkCollapse(number){
-    for(var i=0; i<monster.tabMonster.length; i++){
-        if(weapon.tabWeapon[number].y<=monster.tabMonster[i].y){
-            if(((weapon.tabWeapon[number].x)<=(monster.tabMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(monster.tabMonster[i].x))){
+    
+    var listeMonster = level();
+    
+    for(var i=0; i<listeMonster.length; i++){
+        if(weapon.tabWeapon[number].y <= listeMonster[i].y){
+            if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x))){
                 touch.play();
                 ctx.clearRect(weapon.tabWeapon[number].x, weapon.tabWeapon[number].y, 10, 40);
                 weapon.tabWeapon.splice(number,1);
-                monster.tabMonster[i].vie--;
+                listeMonster[i].vie--;
                 game.increase_score(5);
                 //ctx.clearRect(weapon.tabWeapon[number].x, weapon.tabWeapon[number].y, 10, 40);
                 //ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
-                if(monster.tabMonster[i].vie==0){
-                    ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
-                    monster.tabMonster.splice(i,1);
+                if(listeMonster[i].vie==0){
+                    ctx.clearRect(listeMonster[i].x, listeMonster[i].y, 65, 40);
+                    listeMonster.splice(i,1);
                     game.increase_score(10);
+                }
+                if (listeMonster.length == 0) {
+                    monster.niveau++;
+                    spaceShip.vie = 3;
+                    
                 }
             }
         }
     }
 }
+
+
+
+function checkCollapseShip(number){
+    if(weapon.tabWeaponMonster[number].y >= canvas.height*0.77){
+        if(((weapon.tabWeaponMonster[number].x)<=(spaceShip.x+canvas.width*0.05))&&((weapon.tabWeaponMonster[number].x)>=(monster.tabMonster[i].x))){
+            ctx.clearRect(weapon.tabWeaponMonster[number].x, weapon.tabWeaponMonster[number].y, 10, 40);
+            weapon.tabWeaponMonster.splice(number,1);
+            spaceShip.vie--;
+            if(spaceShip.vie==0){
+                /*ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
+                monster.tabMonster.splice(i,1);*/
+                alert("game over");
+            }
+        }
+    }
+}
+
 
 
 // TRAJECTOIRE MISSILE
@@ -281,21 +342,6 @@ function updateWeapon() {
 }
  
 
-(function updateWeaponMonster() {
-    img_weapon.onload = function() {
-        for(var a=0; a<weapon.tabWeaponMonster.length; a++){
-            ctx.clearRect(weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
-            weapon.tabWeaponMonster[a].y+=canvas.height*0.03;
-            weapon.tabWeaponMonster[a].x+=canvas.width*trajectoire(a);
-            weapon.tabWeaponMonster[a].weaponAlreadyTaken=0;
-            ctx.drawImage(img, 90, 0, 220, 383, weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
-            //checkCollapse(a);
-        }
-    };
-    img_weapon.src = "SpaceInvadersLaser.png";
-    IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
-}) ();
-
 
 
 function new_ammo () {
@@ -315,19 +361,21 @@ function new_ammo () {
 //FUNCTION LOOP WEAPON MONSTER
 
 
- function updateWeaponMonster() {
+
+function updateWeaponMonster() {
     img_weapon.onload = function() {
-        for(var a=0; a<weapon.tabWeapon.length; a++){
-            ctx.clearRect(weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
-            weapon.tabWeapon[a].y-=canvas.height*0.05;
-            ctx.drawImage(img, 90, 0, 220, 383, weapon.tabWeapon[a].x, weapon.tabWeapon[a].y, 10, 40);
-            //checkCollapse(a);
-            //checkEdge(a);
+        for(var a=0; a<weapon.tabWeaponMonster.length; a++){
+            ctx.clearRect(weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
+            weapon.tabWeaponMonster[a].y+=canvas.height*0.03;
+            weapon.tabWeaponMonster[a].x+=canvas.width*trajectoire(a);
+            weapon.tabWeaponMonster[a].weaponAlreadyTaken=0;
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40);
+            checkCollapseShip(a);
         }
     };
     img_weapon.src = "SpaceInvadersLaser.png";
-     monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
-} 
+    IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
+}
 
 function fire() {
     
@@ -340,7 +388,6 @@ function fire() {
             game.ammo--;
             console.log(game.ammo);
             ammoElement.innerHTML = " Ammo : "+game.ammo;
-          //  ammo_bar.setAttribute("value",game.ammo);
             
         }
 
@@ -427,7 +474,6 @@ var game = {
 /*          Level Score function      */
 /*************************************/
     
-    
     increase_score : function (point) 
     {
         this.score += point ;
@@ -463,7 +509,6 @@ var game = {
         
         
     },
-    
     
 /*****************************************/
 /*              State function            */
@@ -596,7 +641,7 @@ var Starfield =  {
 		buff_stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*this.star_size+1,
 		 (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
 	}
-        //put the object on the buffer
+        //put the buffer on the object
 	this.stars = buff_stars;
 
 	var self = this;
@@ -640,10 +685,11 @@ var Starfield =  {
 		ctx.fillRect(star.x, star.y, star.size, star.size);
 	}
 }
+    
 
 }
 
-// Create the star
+
 function Star(x, y, size, velocity) {
 	this.x = x;
 	this.y = y; 
