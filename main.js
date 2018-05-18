@@ -54,7 +54,7 @@ var spaceShip  = {
         img_space_ship.onload = function() {
             ctx.drawImage(img_space_ship, 0, 60, 293, 272, xb, yb, 65, 40);
         };
-        img_space_ship.src = "space-invader.png";
+        img_space_ship.src = "img/space-invader.png";
     },
 };
 spaceShip.draw();
@@ -86,8 +86,8 @@ var monster  = {
                 }
             }
         };
-        img_monster.src = "mechant1.png";
-        img_monster_2.src = "mechant2.png";
+        img_monster.src = "img/mechant1.png";
+        img_monster_2.src = "img/mechant2.png";
     },
 };
 
@@ -149,7 +149,7 @@ var weapon ={
         img_weapon.onload = function() {
             ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
-        img_weapon.src = "SpaceInvadersLaser.png";
+        img_weapon.src = "img/SpaceInvadersLaser.png";
     },
     
     drawMonsterWeapon: function () {
@@ -158,7 +158,7 @@ var weapon ={
         img_weapon.onload = function() {
             ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
         };
-        img_weapon.src = "SpaceInvadersLaser.png";
+        img_weapon.src = "img/SpaceInvadersLaser.png";
     }
     
 }
@@ -337,7 +337,7 @@ function updateWeapon() {
             checkEdge(a);
         }
     };
-    img_weapon.src = "SpaceInvadersLaser.png";
+    img_weapon.src = "img/SpaceInvadersLaser.png";
      weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
 }
  
@@ -373,7 +373,7 @@ function updateWeaponMonster() {
             checkCollapseShip(a);
         }
     };
-    img_weapon.src = "SpaceInvadersLaser.png";
+    img_weapon.src = "img/SpaceInvadersLaser.png";
     IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
 }
 
@@ -588,114 +588,6 @@ var game = {
 
 
 
-var Starfield =  {
-	fps : 50,
-	canvas : null,
-    width :0,
-    heigth : 0,
-	minVelocity : 10,
-	maxVelocity : 300,
-	nb_stars : 20,
-    star_size : 3,
-    stars : 0,
-	intervalId : 0,
-    
-    
-    //init the starfield
-                            /// a finir de modifier ////
-    
-    initialise : function (div) {
-	var self = this;
-
-	//	Store the div.
-	this.containerDiv = div;
-	self.width = window.innerWidth;
-	self.height = window.innerHeight;
-
-	window.onresize = function(event) {
-		self.width = window.innerWidth;
-		self.height = window.innerHeight;
-		self.canvas.width = self.width;
-		self.canvas.height = self.height;
-		self.draw();
-    }
-
-	//	Create the canvas.
-	var canvas = document.createElement('canvas');
-	div.appendChild(canvas);
-	this.canvas = canvas;
-	this.canvas.width = this.width;
-	this.canvas.height = this.height;
-},
-
-
-    // Start the skyfall
-  
-    start  : function  () {
-
-	//	Create the stars.
-	var buff_stars = [];
-     
-     //Create the define number of star
-	for(var i=0; i<this.nb_stars; i++) {
-		buff_stars[i] = new Star(Math.random()*this.width, Math.random()*this.height, Math.random()*this.star_size+1,
-		 (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
-	}
-        //put the buffer on the object
-	this.stars = buff_stars;
-
-	var self = this;
-	//	Start the timer.
-	this.intervalId = setInterval(function() {
-		self.update();
-		self.draw();	
-	}, 1000 / this.fps); 
-},
-    
-    update : function() {
-        
-        
-	var dt = 1 / this.fps;
-
-	for(var i=0; i<this.stars.length; i++) {
-		var star = this.stars[i];
-		star.y += dt * star.velocity;
-		//	If the star has moved from the bottom of the screen, spawn it at the top.
-		if(star.y > this.height) {
-			this.stars[i] = new Star(Math.random()*this.width, 0, Math.random()*3+1, 
-            (Math.random()*(this.maxVelocity - this.minVelocity))+this.minVelocity);
-		}
-	}
-},
-
-    
-    draw : function() {
-
-	//	Get the drawing context.
-	var ctx = this.canvas.getContext("2d");
-
-	//	Draw the background.
-    ctx.fillStyle = '#000000';
-	ctx.fillRect(0, 0, this.width, this.height);
-
-	//	Draw stars.
-	ctx.fillStyle = '#ffffff';
-	for(var i=0; i<this.stars.length;i++) {
-		var star = this.stars[i];
-		ctx.fillRect(star.x, star.y, star.size, star.size);
-	}
-}
-    
-
-}
-
-
-function Star(x, y, size, velocity) {
-	this.x = x;
-	this.y = y; 
-	this.velocity = velocity;
-	this.size = size;
-}
 
 // login object
 
@@ -747,7 +639,7 @@ var login = {
         welcome.setAttribute("id","welcome");
         welcome.setAttribute("top","0%");
         welcome.setAttribute("id","welcome");
-        welcome.innerHTML= "<h2> Welcome </h2> <br><h4> to </h4> <br> <h1> SpaceJU 2018 </h1>";
+        welcome.innerHTML= "<h4> Welcome <br> to <br> SpaceJU 2018 </h4>";
         
     
         
@@ -811,9 +703,7 @@ document.addEventListener("keydown", function (event) {
     }
     
     
-    if(keycode == 37 || keycode == 39 || keycode == 32) {
-    	e.preventDefault();
-    }
+ 
 });
 
 
