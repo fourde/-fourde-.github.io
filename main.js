@@ -11,6 +11,8 @@ var img_weapon = new Image();
 
 var img_monster_2 = new Image();
 
+var img_monster_3 = new Image();
+
 
 var bool = 1;
 var frameRateMonster = 800;
@@ -19,7 +21,7 @@ var frameRateWeaponMonster = 220;
 var positionSpaceShipIniX = [];
 var ammo_delay =3000;
 var ammo_amount = 2 ;
-var max_ammo = 10;
+var max_ammo = 15;
 
 
 var touch = new Audio("touch.mp3");
@@ -28,9 +30,9 @@ var gameElement = document.getElementById("game_area");
 var state_btn = document.getElementById("state_btn");
 var scoreElement = document.getElementById("score_display");
 var ammoElement = document.getElementById("ammo_display");
-//var ammo_bar = document.getElementById("ammo_bar");
+var ammo_bar = document.getElementById("ammo_bar");
 
-//ammo_bar.setAttribute("max",max_ammo);
+ammo_bar.setAttribute("max",max_ammo);
 
 // Interval variables
 var weapon_ID;
@@ -84,10 +86,14 @@ var monster  = {
                 if( tabTest[i].vie == 2 ) {
                     ctx.drawImage(img_monster_2, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
                 }
+                if( tabTest[i].vie == 3 ) {
+                    ctx.drawImage(img_monster_3, 0, 60, 1600, 950, tabTest[i].x, tabTest[i].y, 65, 40);
+                }
             }
         };
         img_monster.src = "img/mechant1.png";
         img_monster_2.src = "img/mechant2.png";
+        img_monster_3.src = "img/mechant3.png";
     },
 };
 
@@ -353,7 +359,7 @@ function new_ammo () {
     ammoElement.innerHTML = "Ammo : "+game.ammo;
     new_ammo_ID = setTimeout(new_ammo,ammo_delay);
             
-         //   ammo_bar.setAttribute("value",game.ammo);
+            ammo_bar.setAttribute("value",game.ammo);
         }
 
 }
@@ -388,7 +394,7 @@ function fire() {
             game.ammo--;
             console.log(game.ammo);
             ammoElement.innerHTML = " Ammo : "+game.ammo;
-         //   ammo_bar.setAttribute("value",game.ammo);
+            ammo_bar.setAttribute("value",game.ammo);
             
         }
 

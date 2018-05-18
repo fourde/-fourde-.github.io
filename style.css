@@ -50,9 +50,9 @@
     z-index : 2;
     display: flex;
     
-    top : 120%;
-    
-    height: 130%;
+    top : 81%;
+    left : 78%;
+    height: 1%;
         
 
     
@@ -60,28 +60,28 @@
 
 
 progress {
-/* style rules */
+
         color : red;
     background-color: red;
 }
 progress::-webkit-progress-bar {
-/* style rules */
+
 
     background-color: black;
     border : 3px;
     border-color :green;
 }
 progress::-webkit-progress-value {
-/* style rules */
+
     background-color: red;
      border : 3px;
     border-color :green;
 } 
 progress::-moz-progress-bar {
         color : red;
-/* style rules */
-}
 
+}
+ 
 
 /*****************************************/
 /***************  Text *********************/
