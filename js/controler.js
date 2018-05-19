@@ -1,22 +1,25 @@
 
-
+// Object defining all the function next to the game
 var game = {
     
      
-    
+    // Store the name and score of the player at the end of the game
+     pseudo : "",
     high_score_this_game : {
         
         pseudo : "UNKNOW",
-        score : "0",
-        
+        score : "0",   
     },
     
+
+    running : false ,       // Boolean remember if the game is running or not
+    HS_onscreeen : false,   // remember if we actually displaying HighScore
+    login_set : false,      // remember if the login is set or no
     
-    running : false ,
-    HS_onscreeen : false,
-    login_set : false,
-    score :0,
+    score :0,               // Actual score of the player
+    
     ammo : 15,
+    bigAmmo : 0,
     level : 1,
     
     
@@ -24,17 +27,21 @@ var game = {
 /*************************************/
 /*          High score function       */
 /************************************/
+    
+    // Load the highscore from the localStorage
     load_high_score : function  () {
     
     high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
 },
     
+    // Save the highscore on the local storage
     save_high_score : function () {
         
         localStorage.setItem("saved_high_score",JSON.stringify(high_score_list));
         
         
     },
+    
     // Show the high score on the screen
     show_high_score : function () {
         
@@ -58,7 +65,7 @@ var game = {
             // title
             highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
         
-            
+            // display the highscore
             for(var i=0;i<high_score_list.length;i++) 
             {
                 highscore_area.innerHTML += high_score_list[i].pseudo;
@@ -72,7 +79,7 @@ var game = {
             this.HS_onscreeen= false;
             
             
-            document.getElementById("pseudo_display").innerHTML = " Player : " + login.pseudo;
+            document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
             this.change_state();
             
         }
@@ -83,6 +90,7 @@ var game = {
 /*          Level Score function      */
 /*************************************/
     
+    // Increase the score 
     increase_score : function (point) 
     {
         this.score += point ;
@@ -90,29 +98,16 @@ var game = {
         
     },
     
-    
-    check_level : function ()
-    {
-    if (monster.tabMonster.length==0) 
-        {
-            this.level++;
-        }
-        
-    },
-    
-    change_level : function () 
-    {
-        
-    },
-    
-    
+     
+    // Winning function 
     win : function () {
         
-        var display_winning = document.createElement("div");
+        var display_winning = document.createElement("div"); // Create a new div area
         
         display_winning.setAttribute("id","win_screen");
         gameElement.appendChild(display_winning);
         
+        // Display the winning screen
         display_winning.innerHTML = "<h1> Congrat's  ! <br> You destroy all the invaders  </h1>";
         display_winning.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
         
@@ -128,10 +123,11 @@ var game = {
         
     },
     
+    // Lose function
     lose : function () {
         
         var set = false;
-        this.high_score_this_game.pseudo = login.pseudo;
+        this.high_score_this_game.pseudo = this.pseudo;
         this.high_score_this_game.score = this.score;
         alert("hey");
         for ( var i =0 ;i< 10 ; i++) 
@@ -166,47 +162,40 @@ var game = {
     // Pause the game
     pause : function () {
     
-        //vPause all the timers
+        //Pause all the timers
     clearTimeout(weapon_ID);
     clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
     clearTimeout(new_ammo_ID);
     clearTimeout(IDWeaponM);
+    clearTimeout(timer_big_weapon_ID);
     
         
-        window.addEventListener("deviceorientation", function () 
-    {
-        processGyro(event.alpha, event.beta, event.gamma); 
+  state_btn.style.backgroundColor = "#ffcc00"; // Change the color of the statge button
         
-    }, false);
-        
-  state_btn.style.backgroundColor = "#ffcc00"; 
-        
-    state_btn.innerHTML="Resume Game";
-        this.running = false;
+    state_btn.innerHTML="Resume Game"; // CHange what the button display
+        this.running = false; // Remember that the game is not running
 },
     
+    
+    // Resume the game
     resume : function () {
         
-        weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
+        // Resume all the timers
+        weapon_ID = setTimeout(updateWeapon, frameRateWeapon); 
         monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
         new_ammo_ID = setTimeout(new_ammo,ammo_delay);
         IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
-    
-        
-    window.addEventListener("deviceorientation", function () 
-    {
-        processGyro(event.alpha, event.beta, event.gamma); 
-        
-    }, true);
-        
+         timer_big_weapon_ID = setTimeout(timerBigWeapon, 20000);
+        // Change the color of the button
         state_btn.style.backgroundColor = "#00F020"; 
+        
+        // Change whqt is displaying
         state_btn.innerHTML = "Pause Game";
         
         
-        
-        
+        // set the game running
         this.running=true;
     
     },
@@ -231,19 +220,18 @@ var game = {
         }
 },
     
-}
-
-
-var login = {
     
     
-    pseudo : "",
-    
-    // first fonciton call by the game
-    display : function () {
+        // first fonciton call by the game
+    start : function () {
         
         // Be shure that the game did not work when the user put his pseudo
-       game.pause();
+       this.pause();
+                // Draw the spacesip and the monster in the back of the login area
+        spaceShip.draw();
+        
+        this.load_high_score();
+        
         // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
         login_form.setAttribute("class","login_class");
@@ -274,7 +262,7 @@ var login = {
     var login_btn = document.createElement("button");
         login_btn.setAttribute("class","login_btn_class");
         login_btn.innerHTML = "Confirm Pseudo";
-        login_btn.setAttribute("onclick","login.setlogin()");
+        login_btn.setAttribute("onclick","game.setlogin()");
         login_form.appendChild(login_btn);
         
         
@@ -293,10 +281,7 @@ var login = {
         // add the form to the game area
         gameElement.appendChild(login_form);
 
-        // Draw the spacesip and the monster in the back of the login area
-        spaceShip.draw();
-        
-        game.load_high_score();
+
         
 },
         // take the value write on the form 
@@ -313,11 +298,16 @@ var login = {
          document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
            
            // remember that the pseudo is set
-           game.login_set=true;
+           this.login_set=true;
            // Launch the game
-           game.resume ();
-    } 
-}   
+           this.resume ();
+    }
+    
+    
+}
+
+// Login object
+ 
 
 
 // Moving function 
@@ -355,33 +345,18 @@ document.addEventListener("keydown", function (event) {
 
 
 
-if (window.DeviceOrientationEvent) 
-{
-    window.addEventListener("deviceorientation", function () 
-    {
-        processGyro(event.alpha, event.beta, event.gamma); 
-        
-    }, true);
-} 
 
 
+// Function that move the spaceShip with the orientation of the phone
 function processGyro(alpha,beta,gamma)
 {
-	
-   
-        if (beta > 1.5) {
-  
-            
-            
-            if (spaceShip.x - canvas.width*((beta / 1000)*1.1) > 0 ) {
-                spaceShip.direction=-1;
-              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+        if (beta > 1.5) { // Only move if it's up than 1.5 for alloow the user to not move the spaceship when the phone is not exactly at beta 0
+            if (spaceShip.x - canvas.width*((beta / 1000)*1.1) > 0 ) { // Check if the spaceship will not be outside the bound of the game
+                spaceShip.direction=-1;  // Give the direction of the spaceship
+              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272); // Clear the last spaceship position
        spaceShip.x-=canvas.width*((beta / 1000)*1.1) ;
         spaceShip.draw(); 
             }
-     
-            
-        //weapon.draw();
     } 
     else if (beta < -1.5){
         
@@ -392,8 +367,6 @@ function processGyro(alpha,beta,gamma)
         spaceShip.draw();
              
          }
-    
-        //weapon.draw();
     }
     
 }
