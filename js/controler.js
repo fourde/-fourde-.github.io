@@ -195,7 +195,7 @@ var game = {
         
         
         // Display the winning screen
-        display_lose.innerHTML = "<h1> Game Over <br> Invaders destroyed your spaceship </h1>";
+        display_lose.innerHTML = "<h3> Game Over <br> Invaders destroyed your spaceship </h3>";
         display_lose.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
         
         
