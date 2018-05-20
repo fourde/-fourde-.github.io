@@ -16,7 +16,7 @@ var game = {
     running : false ,       // Boolean remember if the game is running or not
     HS_onscreeen : false,   // remember if we actually displaying HighScore
     login_set : false,      // remember if the login is set or no
-    losed : false,
+    game_end : false,
     
     score :0,               // Actual score of the player
     
@@ -49,11 +49,11 @@ var game = {
     show_high_score : function () {
         
         
-     if (this.losed == true && (this.HS_onscreeen == false ) )  { 
+     if (this.game_end == true && (this.HS_onscreeen == false ) )  { 
          gameElement.removeChild(win_screen);
          
      } 
-    if ( (this.losed == true) && (this.HS_onscreeen == true) )
+    if ( (this.game_end == true) && (this.HS_onscreeen == true) )
         {
             this.lose();
         }
@@ -103,7 +103,7 @@ var game = {
             
             document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
             this.change_state();
-            alert(this.losed);    
+                
         }
      
     },
@@ -131,7 +131,7 @@ var game = {
         gameElement.appendChild(display_winning);
         
         // Display the winning screen
-        display_winning.innerHTML = "<h1> Congrat's  ! <br> You destroy all the invaders  </h1>";
+        display_winning.innerHTML = "<h4> Congrat's  ! <br> You destroy all the invaders  </h4>";
         display_winning.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
         
         this.high_score_this_game.pseudo = this.pseudo;
@@ -149,10 +149,10 @@ var game = {
     // Lose function
     lose : function () {
         
-    if( this.losed == false)
+    if( this.game_end == false)
         {
         clearGame();
-            this.losed = true;
+            this.game_end = true;
         this.load_high_score();
         game.pause();
         var set = false;
@@ -265,7 +265,7 @@ var game = {
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
         new_ammo_ID = setTimeout(new_ammo,ammo_delay);
         IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
-         timer_big_weapon_ID = setTimeout(timerBigWeapon, 20000);
+         timer_big_weapon_ID = setTimeout(timerBigWeapon, 1000);
         // Change the color of the button
         state_btn.style.backgroundColor = "#00F020"; 
         
@@ -282,7 +282,7 @@ var game = {
     change_state : function () {
     
             //Don't work if the player didn't put his login or if the game display the high_score
-        if ((this.login_set == false) || (this.HS_onscreeen==true) || (this.losed == true)){
+        if ((this.login_set == false) || (this.HS_onscreeen==true) || (this.game_end == true)){
         } else {
         
                 // if the game is actually in pause, resume it 
@@ -300,19 +300,39 @@ var game = {
     // Fonction call when for start a new game
     new_game : function () {
         
+        // clear the game
+        clearGame();    
+        // reset the monster tab
         monster.tabMonster =[];
     monster.tabMonsterNiv2 = [];
     monster.tabMonsterNiv3 = [];
-        clearGame();
+        weapon.tabWeapon = [];
+        weapon.tabWeaponMonster = [];
+        
+        
+        
+        // init again the monster tab
         monster.initialisation();
+        
+        // set bak the ammo
         game.ammo=15;
-        game.bigAmmo=0;
+        game.bigAmmo=1;
+        
+        // Clear the screen
         gameElement.removeChild(win_screen);
+        
+        // Set back the life of the ship
         spaceShip.vie = 3;
+        
+        // Reset score
         game.score = 0;
+        // Display new score
          scoreElement.innerHTML = " Score : 0";
+        //Display life of the spaceship
         spaceShipVie();
-        game.losed = false;
+        game.game_end = false; // remember that we didn't lose
+        
+        // Start the game
         game.resume();
         
     },

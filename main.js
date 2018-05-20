@@ -102,7 +102,7 @@ spaceShip.draw();
 var monster  = {
     niveau : 1, // level of difficulties of the game
     number: 30, // number of monster
-    x: canvas.width*0.24, // initialisation pf coordinates of the first monster
+    x: canvas.width*0.16, // initialisation of coordinates of the first monster
     y: canvas.height*0.07,
     direction: 1, // direction of the monster
     tabMonster:[], // list of monster for the first level
@@ -223,7 +223,7 @@ var weapon = {
         var xb = this.xM; // some variable used just after. I use them because problem can appear with the function onload
         var yb = this.yM;
         img_weapon.onload = function() { // to draw the weapon on the canvas
-            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 40);
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, xb, yb, 10, 10);
         };
         img_weapon.src = "img/SpaceInvadersLaser.png";
     },
@@ -235,7 +235,7 @@ var weapon = {
         }
         
         for (var i=0; i<this.tabWeaponMonster; i++){
-            ctx.clearRect(this.tabWeaponMonster[i].x, this.tabWeaponMonster[i].y, 10, 40);
+            ctx.clearRect(this.tabWeaponMonster[i].x, this.tabWeaponMonster[i].y, 10, 10);
         }
         
     },
@@ -282,7 +282,7 @@ function updateMonster() {
     
     else if(monster.direction==-1){ // quite same statement than previously
         
-        if(listeMonster[0].x>canvas.width*0.07){
+        if(listeMonster[0].x>canvas.width*0.11){
             
             for(var j=0; j<listeMonster.length; j++){
                 listeMonster[j].x-=canvas.width*0.03;
@@ -308,14 +308,11 @@ function updateMonster() {
     
     positionSpaceShipIniX.push(spaceShip.x); // This list will alow us to remember the position of the ship while the monster is shooting. This is usefull during the function trajectoire                                            //appeal
     
-    if (checkCollapseNoWeapon()) {
+    if (checkCollapseNoWeapon()) { // If a monster touch the ship
         game.lose();
     }
     
     monster_move_ID = setTimeout(updateMonster, frameRateMonster); // motion of all the monster at each time
-    /*if (spaceShip.game==0){
-        clearTimeout(ID);
-    }*/
 }
 
 
@@ -370,7 +367,7 @@ function checkEdge(number){
 
 function checkEdgeWeaponMonster(number){
     if(weapon.tabWeaponMonster[number].y >= canvas.height*0.95){ //If the weapon of monster is out of the map...
-        ctx.clearRect(weapon.tabWeaponMonster[number].x, weapon.tabWeaponMonster[number].y, 10, 40); // ...we clear it...
+        ctx.clearRect(weapon.tabWeaponMonster[number].x, weapon.tabWeaponMonster[number].y, 10, 10); // ...we clear it...
         weapon.tabWeaponMonster.splice(number,1);//.. and delete the weapon's coordinates from the list.
         positionSpaceShipIniX.splice(number,1);//.. and delete the spaceShip's coordinates from the list which is used in the function trajectoire.
     }
@@ -390,6 +387,9 @@ function erase(list){ // This function is used in the function checkCollapse. If
             game.increase_score(10); // increase the score
         }
         if (list.length == 0) { // if there isn't anymore monster, next level
+            if (monster.niveau == 3){ // If win
+                game.win();
+            }
             monster.niveau++;
             spaceShip.vie = 3;        
         }
@@ -416,7 +416,7 @@ function checkCollapseNoWeapon () { // function to know if the monster have reac
 }
 
 
-//FUNCTION LOOP COLLAPSE MONSTRE WITH WEAPON
+//FUNCTION LOOP COLLAPSE MONSTER WITH WEAPON
 
 
 function checkCollapse(number){
@@ -427,7 +427,7 @@ function checkCollapse(number){
     for(var i=0; i<listeMonster.length; i++){
         
         if(weapon.tabWeapon[number].y <= listeMonster[i].y){ 
-            if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x))){ //If the coordinates of the weapon are quite the                                                                                                                                 //same than the monster...
+            if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x-canvas.width*0.01))){ //If the coordinates of the                                                                                                                                   //weapon are quite the  same than the monster...
                 touch.play();
                 
                 if (weapon.tabWeapon[number].bigOne == 1) { // If it's the big weapon...
@@ -467,7 +467,7 @@ function checkCollapseShip(number){ // check to know if a weapon ennemy will hit
     if((weapon.tabWeaponMonster[number].y+canvas.height*0.03 >= spaceShip.y) && (weapon.tabWeaponMonster[number].y+canvas.height*0.03 <= spaceShip.y+canvas.height*0.06)){
         if(((weapon.tabWeaponMonster[number].x)<=(spaceShip.x+canvas.width*0.04))&&((weapon.tabWeaponMonster[number].x)>=(spaceShip.x))){//If the coordinates of the weapon are quite the                                                                                                                                    //same than the ship...
             
-            ctx.clearRect(weapon.tabWeaponMonster[number].x, weapon.tabWeaponMonster[number].y, 10, 40); // just clear the weapon of the monster after hit
+            ctx.clearRect(weapon.tabWeaponMonster[number].x, weapon.tabWeaponMonster[number].y, 10, 10); // just clear the weapon of the monster after hit
             colorSpaceShip(); // blink of the ship
             weapon.tabWeaponMonster.splice(number,1); // delete the weapon from his list
             positionSpaceShipIniX.splice(number,1);
@@ -475,8 +475,8 @@ function checkCollapseShip(number){ // check to know if a weapon ennemy will hit
             spaceShipVie(); // erased one ship at the top right of the canvas
             
             if(spaceShip.vie==0){ // if the ship don't have enough life, end of the game
-                alert("game over");
                 game.lose();
+                clearGame();
             }
         }
     }
@@ -547,9 +547,9 @@ function updateWeapon() { // function appealed with a short settimeout. This one
     };
     img_weapon.src = "img/SpaceInvadersLaser_spaceship.png";
     img_weapon_big.src = "img/SpaceInvadersLaser_spaceship_big.png";
-    weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
     monster.draw(); // just draw the monster 
     spaceShip.draw(); // and ship to avoid supperposition
+    weapon_ID = setTimeout(updateWeapon, frameRateWeapon); // set the framerate of the user weapon
 }
  
 
@@ -577,21 +577,21 @@ function new_ammo () {
 function updateWeaponMonster() { // function appealed with a short settimeout. This one is for weapon of monster
     img_weapon.onload = function() {
         for(var a=0; a<weapon.tabWeaponMonster.length; a++){ // a loop to see inside the list of the weapon of the ship. Inside this liste, there are the coordinates of each weapon who has                                                      // been shoot by the monster
-            ctx.clearRect(weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40); // clear the previous weapon before a new display of the weapon of the monster
+            ctx.clearRect(weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 10); // clear the previous weapon before a new display of the weapon of the monster
             weapon.tabWeaponMonster[a].y+=canvas.height*0.03; // increase the move of the monster's weapon
             weapon.tabWeaponMonster[a].x+=trajectoire(a); // increase the move of the monster's weapon. but contrary to the weapon of the ship's weapon which is straight, this weapon can                                                 //move to the right and the left in the same time that it is going downstair
             
             weapon.tabWeaponMonster[a].weaponAlreadyTaken=1; // This data is used to know if weapon is already shot or if it's a first shot by a monster. In this case, we have to calculate 
                                                              // a new "step" which is use the motion of the weapon to right or the left.
             
-            ctx.drawImage(img_weapon, 90, 0, 220, 383, weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 40); // clear the previous weapon before a new display of the weapon                                                                                                                 //of the monster
+            ctx.drawImage(img_weapon, 90, 0, 220, 383, weapon.tabWeaponMonster[a].x, weapon.tabWeaponMonster[a].y, 10, 10); // clear the previous weapon before a new display of the weapon                                                                                                                 //of the monster
             checkCollapseShip(a); // Check if the monster hit the ship
             checkEdgeWeaponMonster(a);  // Check if the monster shot a weapon which is out of the canvas
         }
     };
     img_weapon.src = "img/SpaceInvadersLaser.png";
-    IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster); 
     monster.draw();
+    IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster); 
 }
 
 
@@ -619,7 +619,7 @@ function fire() { // When the user puch the button the send a weapon
 
 function fireBigOne () {
     if ( game.running != false) {
-        if (game.ammo > 0) {
+        if (game.bigAmmo > 0) {
             weapon.y=(spaceShip.y-canvas.height*0.05);
             weapon.x=spaceShip.x+canvas.height*0.017;
             weapon.tabWeapon.push({x:weapon.x, y:weapon.y, xTrajectoire: weapon.x, bigOne:1});
