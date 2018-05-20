@@ -2,10 +2,10 @@
 // Object defining all the function next to the game
 var game = {
     
-    
+    pseudo : "", // Store the pseudo of the player
     
     // Store the name and score of the player at the end of the game
-     pseudo : "",
+     
     high_score_this_game : {
         
         pseudo : "UNKNOW",
@@ -20,10 +20,10 @@ var game = {
     
     score :0,               // Actual score of the player
     
-    ammo : 15,
-    bigAmmo : 1,
-    level : 1,
-    high_score_list : [ ],
+    ammo : 15,              // Ammo
+    bigAmmo : 1,            // Big ammo
+    level : 1,              // Actual level
+    high_score_list : [ ],  // Store the highscore
     
     
     
@@ -48,7 +48,7 @@ var game = {
     // Show the high score on the screen
     show_high_score : function () {
         
-        
+        // 
      if (this.game_end == true && (this.HS_onscreeen == false ) )  { 
          gameElement.removeChild(win_screen);
          
@@ -125,6 +125,7 @@ var game = {
     // Winning function 
     win : function () {
         
+        game.pause();
         var display_winning = document.createElement("div"); // Create a new div area
         
         display_winning.setAttribute("id","win_screen");
@@ -216,8 +217,8 @@ var game = {
         
         
         // Display the winning screen
-        display_lose.innerHTML = "<h3> Game Over <br> Invaders destroyed your spaceship </h3>";
-        display_lose.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
+        display_lose.innerHTML = "<h4> Game Over <br> Invaders destroyed your spaceship </h4>";
+        display_lose.innerHTML += "<h4> Your score is : "+this.score +" </h4> ";
         
         
          var play_again_btn = document.createElement("button");
@@ -301,6 +302,7 @@ var game = {
     new_game : function () {
         
         // clear the game
+        ctx.clearRect(0,0,canvas.width,canvas.height);
         clearGame();    
         // reset the monster tab
         monster.tabMonster =[];
@@ -347,6 +349,7 @@ var game = {
                 // Draw the spacesip and the monster in the back of the login area
         spaceShip.draw();
         monster.draw();
+        spaceShipVie ();
         
         this.load_high_score();
         
@@ -434,10 +437,14 @@ var game = {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
-        spaceShip.direction=-1;
-        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x-=canvas.width*0.03 ;
-        spaceShip.draw();
+        
+        if((spaceShip.x - canvas.width) < 0)
+            {
+                spaceShip.direction=-1;
+            ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+            spaceShip.x-=canvas.width*0.03 ;
+                spaceShip.draw();
+            }
         //weapon.draw();
     } 
     else if (event.key === "ArrowRight"){

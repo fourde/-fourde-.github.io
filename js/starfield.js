@@ -1,3 +1,5 @@
+
+
 var Starfield =  {
 	fps : 50,
 	canvas : null,
@@ -12,7 +14,7 @@ var Starfield =  {
     
     
     //init the starfield
-                            /// a finir de modifier ////
+                            
     
     initialise : function (div) {
 	var self = this;
