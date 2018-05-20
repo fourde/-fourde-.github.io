@@ -10,18 +10,6 @@
            <meta name="description" content="Space Invader JU Version 2018">
            <link rel="stylesheet" href="style.css">
            
-           <style> 
-           
-            #gamecontainer {
-                width: 800px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-               
-
-           </style>
-           
-    <!--  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
                <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable = no"> 
     <title>SpaceJU</title>
@@ -45,29 +33,30 @@
     <body onload="game.start()">
         
         <!-- Title -->
-        <h5 align ="center" id ="title_ju"> Space JU 2018 version V 1.13 </h5>  
+        <h5 align ="center" id ="title_ju"> Space JU 2018 </h5>  
         <div id = star_background  >   </div>
         
         <!-- Game canvas -->
         <canvas id="game_canvas" ></canvas>
         <div id="game_area" >
-            <div id="pseudo_display" > Player :</div> <br>
-            <div id= "score_display" > Score :  0 </div>
+            <div id="pseudo_display" > Player :</div> <br> <!-- Display player Pseudo -->
+            <div id= "score_display" > Score :  0 </div> <!-- Display score -->
         </div>
         
         <!-- Menu button -->
-        <button class = "menu_btn" id="high_score_btn"  onclick = "game.show_high_score()"> High score </button>
-        <button class = "menu_btn" id="state_btn" onclick="game.change_state()" > Pause Game </button>
-    <button class = "menu_btn" id="special_fire" > Special Missile </button>
-        <button id= "fire_btn" onclick="fire()"> FIRE </button>
+        <button class = "menu_btn" id="high_score_btn"  onclick = "game.show_high_score()"> High score </button>  <!-- High score button  -->
+        <button class = "menu_btn" id="state_btn" onclick="game.change_state()" > Pause Game </button> <!--  pause button -->
+        <progress  value = "0" id="special_ammo_bar" >  </progress>  <!-- Special ammo progress bar -->
+    <button class = "menu_btn" id="special_fire"onclick ="fireBigOne()" > Special Missile </button> <!-- special missile launch button  -->
+        <button id= "fire_btn" onclick="fire()"> FIRE </button> <!-- Fire button -->
         
         
         
-        <div id = "ammo_display"> Ammo : 10
-        </div>
-        <progress  value = "12" id="ammo_bar" >  </progress> 
+        <div id = "ammo_display"> Ammo : 10   </div>  <!--  Ammo display  -->
+        <progress  value = "15" id="ammo_bar" >  </progress>  <!-- Ammo bar -->
         
-        <div id= "intro_text" > Hey welcome to SpaceJu 2018 version <br> More explination will come after !  
+        
+        <div id= "intro_text" > Welcome to SpaceJu 2018 version <br> Move your SpaceShip by tilting your phone <br> Launch missiles with FIRE button <br> Try to defeat the 3 invaders waves  
         </div>
         
         
@@ -75,13 +64,13 @@
        
         
         
-        
+        <!--  Call all se script -->
         <script src="main.js">     </script>
         <script src="js/starfield.js">     </script>
         <script src="js/controler.js">     </script>
         
     <script>
-    
+    // Launch the star background
     Starfield.initialise(star_background);
     Starfield.start();
 

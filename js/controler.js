@@ -21,7 +21,7 @@ var game = {
     score :0,               // Actual score of the player
     
     ammo : 15,
-    bigAmmo : 0,
+    bigAmmo : 1s,
     level : 1,
     high_score_list : [ ],
     
@@ -43,15 +43,32 @@ var game = {
     // Save the highscore on the local storage
     save_high_score : function () {
         localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
-        alert("saved");
-        
     },
     
     // Show the high score on the screen
     show_high_score : function () {
         
         
-     if (this.losed == false )  { 
+     if (this.losed == true && (this.HS_onscreeen == false ) )  { 
+         gameElement.removeChild(win_screen);
+         
+     } 
+    if ( (this.losed == true) && (this.HS_onscreeen == true) )
+        {
+            this.lose();
+        }
+        
+    
+    if ( (this.login_set == false) && (this.HS_onscreeen == false))
+        {
+            gameElement.removeChild(login_form);
+            gameElement.removeChild(welcome);
+        }
+    if ((this.login_set == false) && ( this.HS_onscreeen == true))
+        {
+            this.start();
+        }
+     
         // if the screen is not actully displayed
         if (this.HS_onscreeen==false) {
             clearGame();
@@ -86,9 +103,9 @@ var game = {
             
             document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
             this.change_state();
-            
+            alert(this.losed);    
         }
-     }
+     
     },
     
     
@@ -132,6 +149,8 @@ var game = {
     // Lose function
     lose : function () {
         
+    if( this.losed == false)
+        {
         clearGame();
             this.losed = true;
         this.load_high_score();
@@ -142,33 +161,34 @@ var game = {
         this.high_score_this_game.pseudo = this.pseudo;
         this.high_score_this_game.score = this.score;
         console.log(this.high_score_this_game);
-        alert("hey");
+        
         if( localStorage.length != 0) {
         for ( var i = 0 ;i < this.high_score_list.length  ; i++) 
             {
-                    if(this.high_score_list.length <10)
+                    if(i <10)
                         {
-                    alert(this.high_score_list.length);
-                    alert(i);
+                    
+                    
                     if(pos_set==false)
                         {
-                        alert("ENter pos_set_false");
-                            if ( this.high_score_this_game.score <   this.high_score_list[i].score)
+                           
+                            if ( this.high_score_this_game.score >   this.high_score_list[i].score)
                             {
-                                alert("score plsu petit");
-                                pos_set=true
+                                
+                                pos_set=true;
                                 pos = i;
                             }
                         }
                     }
                 
             }
-            alert("for finish");
+            
         if (pos_set==true)
             {
-                alert("rentrer dans le pslice");
+                
                 set = true;
-                this.high_score_list.splice(i,0,this.high_score_this_game);
+                this.high_score_list.splice(pos,0,this.high_score_this_game);
+                this.save_high_score();
                 console.log(this.high_score_list);
             }
         }
@@ -179,14 +199,15 @@ var game = {
                     if (this.high_score_list.length <10 )
                         {
                             
-                            this.high_score_list.unshift(this.high_score_this_game);
-                            alert(this.high_score_list);
+                            this.high_score_list.push(this.high_score_this_game);
+                            
                             this.save_high_score(); 
                             
                         }
                 }
+        }
                 
-                this.save_high_score(); 
+                 
         
         
         var display_lose = document.createElement("div"); // Create a new div area
@@ -278,13 +299,20 @@ var game = {
 },
     
     new_game : function () {
+        
+        monster.tabMonster =[],
+    monster.tabMonsterNiv2 = [],
+    monster.tabMonsterNiv3 = []
         clearGame();
         monster.initialisation();
         game.ammo=15;
         game.bigAmmo=0;
         gameElement.removeChild(win_screen);
         spaceShip.vie = 3;
+        game.score = 0;
+         scoreElement.innerHTML = " Score : 0";
         spaceShipVie();
+        game.losed = false;
         game.resume();
         
     },
@@ -294,11 +322,14 @@ var game = {
         
         // Be shure that the game did not work when the user put his pseudo
   
+        
        this.pause();
                 // Draw the spacesip and the monster in the back of the login area
         spaceShip.draw();
+        monster.draw();
         
         this.load_high_score();
+        
         
         // Create the form for the pseudo of the player
      var login_form = document.createElement("form");
@@ -419,19 +450,19 @@ document.addEventListener("keydown", function (event) {
 function processGyro(alpha,beta,gamma)
 {
         if (beta > 1.5) { // Only move if it's up than 1.5 for alloow the user to not move the spaceship when the phone is not exactly at beta 0
-            if (spaceShip.x - canvas.width*((beta / 1000)*1.1) > 0 ) { // Check if the spaceship will not be outside the bound of the game
+            if (spaceShip.x - canvas.width*((beta / 1000)*1.3) > 0 ) { // Check if the spaceship will not be outside the bound of the game
                 spaceShip.direction=-1;  // Give the direction of the spaceship
               ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272); // Clear the last spaceship position
-       spaceShip.x-=canvas.width*((beta / 1000)*1.1) ;
+       spaceShip.x-=canvas.width*((beta / 1000)*1.3) ;
         spaceShip.draw(); 
             }
     } 
     else if (beta < -1.5){
         
-         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*1.1) < ((canvas.width *0.92) )) {
+         if (spaceShip.x + canvas.width*(( Math.abs(beta) / 1000)*1.3) < ((canvas.width *0.92) )) {
         spaceShip.direction=1;
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*1.1);
+        spaceShip.x+= canvas.width*((Math.abs(beta) / 1000)*1.3);
         spaceShip.draw();
              
          }

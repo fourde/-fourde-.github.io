@@ -58,6 +58,18 @@
 
     
 }
+#special_ammo_bar 
+{
+    
+       position: absolute;
+    z-index : 3;
+    display: flex;
+    
+    top : 58%;
+    left : 78%;
+    height: 1%;
+    width: 15%;
+}
 
 
 progress {
@@ -141,7 +153,7 @@ progress::-moz-progress-bar {
     position : absolute; 
     display : flex;
     left : 78%;
-    top : 40%;
+    top : 35%;
     font-family: Impact;
     text-shadow: 4px 0px 30px  green;
     font-weight: bold;
@@ -282,8 +294,8 @@ progress::-moz-progress-bar {
     width: 15%;
     height: 12%;
     
-    top : 60%;
-    left : 55%;
+    top : 70%;
+    left : 67%;
     
     
 }
@@ -307,10 +319,10 @@ progress::-moz-progress-bar {
 	padding: 1% 2%;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #2f6627;
-    background-color:blue;
+    background-color:#00F020;
 
     left : 78%;
-    top : 45%;
+    top : 40%;
     z-index: 1;
     position: absolute;
     display: flex;
