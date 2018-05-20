@@ -153,7 +153,7 @@ progress::-moz-progress-bar {
     position : absolute; 
     display : flex;
     left : 78%;
-    top : 35%;
+    top : 30%;
     font-family: Impact;
     text-shadow: 4px 0px 30px  green;
     font-weight: bold;
@@ -322,7 +322,7 @@ progress::-moz-progress-bar {
     background-color:#00F020;
 
     left : 78%;
-    top : 40%;
+    top : 43%;
     z-index: 1;
     position: absolute;
     display: flex;
@@ -382,7 +382,7 @@ progress::-moz-progress-bar {
 
 
 #high_score_btn {
-    width : 10%;
+    width : 15%;
     height : 8%;
     left : 78%;
     top : 20%;

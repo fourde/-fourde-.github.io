@@ -300,9 +300,9 @@ var game = {
     
     new_game : function () {
         
-        monster.tabMonster =[],
-    monster.tabMonsterNiv2 = [],
-    monster.tabMonsterNiv3 = []
+        monster.tabMonster =[];
+    monster.tabMonsterNiv2 = [];
+    monster.tabMonsterNiv3 = [];
         clearGame();
         monster.initialisation();
         game.ammo=15;
