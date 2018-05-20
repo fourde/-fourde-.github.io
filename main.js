@@ -309,7 +309,7 @@ function updateMonster() {
     positionSpaceShipIniX.push(spaceShip.x); // This list will alow us to remember the position of the ship while the monster is shooting. This is usefull during the function trajectoire                                            //appeal
     
     if (checkCollapseNoWeapon()) {
-        alert("game over");
+        game.lose();
     }
     
     monster_move_ID = setTimeout(updateMonster, frameRateMonster); // motion of all the monster at each time

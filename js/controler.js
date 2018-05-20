@@ -297,7 +297,7 @@ var game = {
             }
         }
 },
-    
+    // Fonction call when for start a new game
     new_game : function () {
         
         monster.tabMonster =[];
