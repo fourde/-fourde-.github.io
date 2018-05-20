@@ -437,10 +437,12 @@ var game = {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
+        if((spaceShip.x - canvas.width*0.03 > 0){
         spaceShip.direction=-1;
         ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
         spaceShip.x-=canvas.width*0.03 ;
         spaceShip.draw();
+    }
         //weapon.draw();
     } 
     else if (event.key === "ArrowRight"){
