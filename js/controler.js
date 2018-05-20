@@ -2,7 +2,8 @@
 // Object defining all the function next to the game
 var game = {
     
-     
+    
+    
     // Store the name and score of the player at the end of the game
      pseudo : "",
     high_score_this_game : {
@@ -15,12 +16,14 @@ var game = {
     running : false ,       // Boolean remember if the game is running or not
     HS_onscreeen : false,   // remember if we actually displaying HighScore
     login_set : false,      // remember if the login is set or no
+    losed : false,
     
     score :0,               // Actual score of the player
     
     ammo : 15,
     bigAmmo : 0,
     level : 1,
+    high_score_list : [ ],
     
     
     
@@ -31,14 +34,16 @@ var game = {
     // Load the highscore from the localStorage
     load_high_score : function  () {
     
-    high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
+        if(localStorage.length !=0)
+            {
+    this.high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
+            }
 },
     
     // Save the highscore on the local storage
     save_high_score : function () {
-        
-        localStorage.setItem("saved_high_score",JSON.stringify(high_score_list));
-        
+        localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
+        alert("saved");
         
     },
     
@@ -46,10 +51,10 @@ var game = {
     show_high_score : function () {
         
         
-           
+     if (this.losed == false )  { 
         // if the screen is not actully displayed
         if (this.HS_onscreeen==false) {
-            
+            clearGame();
             
             this.HS_onscreeen = true; // flag set if actually display
             this.pause(); // pause the game
@@ -66,10 +71,10 @@ var game = {
             highscore_area.innerHTML = "<h2> HighScore <br> Pseudo / Score </h2>";
         
             // display the highscore
-            for(var i=0;i<high_score_list.length;i++) 
+            for(var i=0;i<this.high_score_list.length;i++) 
             {
-                highscore_area.innerHTML += high_score_list[i].pseudo;
-                highscore_area.innerHTML += "         " + high_score_list[i].score;
+                highscore_area.innerHTML += this.high_score_list[i].pseudo;
+                highscore_area.innerHTML += "         " + this.high_score_list[i].score;
                 highscore_area.innerHTML += "<br> <br>";
             }
         }
@@ -83,6 +88,7 @@ var game = {
             this.change_state();
             
         }
+     }
     },
     
     
@@ -111,11 +117,11 @@ var game = {
         display_winning.innerHTML = "<h1> Congrat's  ! <br> You destroy all the invaders  </h1>";
         display_winning.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
         
-        this.high_score_this_game.pseudo = login.pseudo;
+        this.high_score_this_game.pseudo = this.pseudo;
         this.high_score_this_game.score = this.score;
         
         console.log(this.high_score_this_game);
-        console.log(high_score_list);
+        console.log(this.high_score_list);
         high_score_list.unshift(this.high_score_this_game);
         this.save_high_score();
         
@@ -126,38 +132,67 @@ var game = {
     // Lose function
     lose : function () {
         
+        clearGame();
+            this.losed = true;
+        this.load_high_score();
         game.pause();
         var set = false;
+        var pos =0;
+        var pos_set = false;
         this.high_score_this_game.pseudo = this.pseudo;
         this.high_score_this_game.score = this.score;
+        console.log(this.high_score_this_game);
         alert("hey");
-       /* for ( var i =0 ;i< 10 ; i++) 
+        if( localStorage.length != 0) {
+        for ( var i = 0 ;i < this.high_score_list.length  ; i++) 
             {
-                if(high_score_list[i].score < this.high_score_this_game.score)
-                    {
-                        alert(i);   
-                        high_score_list.splice(i-1,0,this.high_score_this_game);
-                        set = true;
+                    if(this.high_score_list.length <10)
+                        {
+                    alert(this.high_score_list.length);
+                    alert(i);
+                    if(pos_set==false)
+                        {
+                        alert("ENter pos_set_false");
+                            if ( this.high_score_this_game.score <   this.high_score_list[i].score)
+                            {
+                                alert("score plsu petit");
+                                pos_set=true
+                                pos = i;
+                            }
+                        }
                     }
+                
             }
+            alert("for finish");
+        if (pos_set==true)
+            {
+                alert("rentrer dans le pslice");
+                set = true;
+                this.high_score_list.splice(i,0,this.high_score_this_game);
+                console.log(this.high_score_list);
+            }
+        }
         
          if (set == false) 
                 {
-                    alert ("false");
-                    if (high_score_list.length <10 )
+                    
+                    if (this.high_score_list.length <10 )
                         {
-                            alert("push");
-                            high_score_list.push(this.high_score_this_game);
+                            
+                            this.high_score_list.unshift(this.high_score_this_game);
+                            alert(this.high_score_list);
+                            this.save_high_score(); 
+                            
                         }
                 }
                 
-                this.save_high_score; */
+                this.save_high_score(); 
         
         
         var display_lose = document.createElement("div"); // Create a new div area
-        alert("hey");
+
         display_lose.setAttribute("id","win_screen");
-        gameElement.appendChild(display_lose);
+        
         
         // Display the winning screen
         display_lose.innerHTML = "<h1> Game Over <br> Invaders destroyed your spaceship </h1>";
@@ -167,8 +202,13 @@ var game = {
          var play_again_btn = document.createElement("button");
         play_again_btn.setAttribute("id","play_again");
         play_again_btn.innerHTML = "Play Again";
-        play_again_btn.setAttribute("onclick","game.show_high_score");
-        gameElement.appendChild(play_again_btn);
+        play_again_btn.setAttribute("onclick","game.new_game()");
+            
+        gameElement.appendChild(display_lose);
+        display_lose.appendChild(play_again_btn);
+            
+        
+         
         
     },
     
@@ -221,7 +261,7 @@ var game = {
     change_state : function () {
     
             //Don't work if the player didn't put his login or if the game display the high_score
-        if ((this.login_set == false) || (this.HS_onscreeen==true)){
+        if ((this.login_set == false) || (this.HS_onscreeen==true) || (this.losed == true)){
         } else {
         
                 // if the game is actually in pause, resume it 
@@ -237,7 +277,17 @@ var game = {
         }
 },
     
-    
+    new_game : function () {
+        clearGame();
+        monster.initialisation();
+        game.ammo=15;
+        game.bigAmmo=0;
+        gameElement.removeChild(win_screen);
+        spaceShip.vie = 3;
+        spaceShipVie();
+        game.resume();
+        
+    },
     
         // first fonciton call by the game
     start : function () {
