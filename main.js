@@ -171,9 +171,9 @@ monster.initialisation();
 
 function spaceShipVie () { // function to display at the top right of the canvas the number of life of the ship
     img_space_ship.onload = function() {
-        ctx.clearRect(canvas.width*0.81, canvas.height*0.01, 300, 25);
+        ctx.clearRect(canvas.width*0.75, canvas.height*0.01, 300, 25);
         for (var i =0; i<spaceShip.vie; i++) {
-            ctx.drawImage(img_space_ship, 0, 60, 293, 272, canvas.width*(0.96-i*0.05), canvas.height*0.01, 45, 25); // Just draw mini ship
+            ctx.drawImage(img_space_ship, 0, 60, 293, 272, canvas.width*(0.90-i*0.05), canvas.height*0.01, 45, 25); // Just draw mini ship
         }
     };
     img_space_ship.src = "img/space-invader.png";

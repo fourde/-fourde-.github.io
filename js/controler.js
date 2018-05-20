@@ -21,7 +21,7 @@ var game = {
     score :0,               // Actual score of the player
     
     ammo : 15,
-    bigAmmo : 1s,
+    bigAmmo : 1,
     level : 1,
     high_score_list : [ ],
     
