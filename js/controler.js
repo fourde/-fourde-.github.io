@@ -126,11 +126,12 @@ var game = {
     // Lose function
     lose : function () {
         
+        game.pause();
         var set = false;
         this.high_score_this_game.pseudo = this.pseudo;
         this.high_score_this_game.score = this.score;
         alert("hey");
-        for ( var i =0 ;i< 10 ; i++) 
+       /* for ( var i =0 ;i< 10 ; i++) 
             {
                 if(high_score_list[i].score < this.high_score_this_game.score)
                     {
@@ -150,8 +151,24 @@ var game = {
                         }
                 }
                 
-                this.save_high_score;
+                this.save_high_score; */
         
+        
+        var display_lose = document.createElement("div"); // Create a new div area
+        alert("hey");
+        display_lose.setAttribute("id","win_screen");
+        gameElement.appendChild(display_lose);
+        
+        // Display the winning screen
+        display_lose.innerHTML = "<h1> Game Over <br> Invaders destroyed your spaceship </h1>";
+        display_lose.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
+        
+        
+         var play_again_btn = document.createElement("button");
+        play_again_btn.setAttribute("id","play_again");
+        play_again_btn.innerHTML = "Play Again";
+        play_again_btn.setAttribute("onclick","game.show_high_score");
+        gameElement.appendChild(play_again_btn);
         
     },
     
@@ -226,6 +243,7 @@ var game = {
     start : function () {
         
         // Be shure that the game did not work when the user put his pseudo
+  
        this.pause();
                 // Draw the spacesip and the monster in the back of the login area
         spaceShip.draw();
@@ -260,7 +278,7 @@ var game = {
         
         // Create the submit buttun
     var login_btn = document.createElement("button");
-        login_btn.setAttribute("class","login_btn_class");
+        login_btn.setAttribute("id","login_btn");
         login_btn.innerHTML = "Confirm Pseudo";
         login_btn.setAttribute("onclick","game.setlogin()");
         login_form.appendChild(login_btn);

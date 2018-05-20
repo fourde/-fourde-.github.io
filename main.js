@@ -142,6 +142,7 @@ monster.draw();
 
 
 
+
 //FUNCTION LEVEL
 
 function level(){
@@ -371,6 +372,7 @@ function checkCollapseShip(number){
                 /*ctx.clearRect(monster.tabMonster[i].x, monster.tabMonster[i].y, 65, 40);
                 monster.tabMonster.splice(i,1);*/
                 alert("game over");
+                game.lose();
             }
         }
     }
