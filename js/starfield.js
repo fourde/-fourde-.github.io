@@ -1,4 +1,6 @@
-
+/* Found on github */ 
+/* https://github.com/dwmkerr/spaceinvaders/tree/master/js */
+/* Made by dwmkerr */
 
 var Starfield =  {
 	fps : 50,
