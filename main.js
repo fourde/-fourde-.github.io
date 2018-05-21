@@ -416,7 +416,8 @@ function erase(list){ // This function is used in the function checkCollapse. If
                 game.win();
             }
             monster.niveau++;
-            spaceShip.vie = 3;        
+            spaceShip.vie ++;    
+            spaceShipVie();
         }
     }
 }
@@ -454,7 +455,7 @@ function checkCollapse(number){
         if(weapon.tabWeapon[number].y <= listeMonster[i].y){ 
             if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x-canvas.width*0.01))){ //If the coordinates of the                                                                                                                                   //weapon are quite the  same than the monster...
                 touch.play();
-                navigator.vibrate(1000);
+                navigator.vibrate(10);
                 
                 if (weapon.tabWeapon[number].bigOne == 1) { // If it's the big weapon...
                     boolBigOne = 1;
@@ -498,9 +499,11 @@ function checkCollapseShip(number){ // check to know if a weapon ennemy will hit
             weapon.tabWeaponMonster.splice(number,1); // delete the weapon from his list
             positionSpaceShipIniX.splice(number,1);
             spaceShip.vie--; // decrease the life of the ship
+            navigator.vibrate(500);
             spaceShipVie(); // erased one ship at the top right of the canvas
             
             if(spaceShip.vie==0){ // if the ship don't have enough life, end of the game
+                navigator.vibrate(600);
                 game.lose();
                 clearGame();
             }
@@ -525,7 +528,6 @@ function trajectoire(number) { // The goal of this function is to send a missile
             
             quotient = (canvas.height*0.8-weapon.tabWeaponMonster[number].yTrajectoire)/(canvas.height*0.03); //The quotient is the number of time for the weapon of the monster went at the 
                                                                                                               //same y than the spaceship.
-            
             pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire - canvas.width*0.06)/quotient; // we can also no the "step" of the weapon thanks to the                                                                                                                        //quotient.
             weapon.tabWeaponMonster[number].pas = (positionSpaceShipIniX[number] - weapon.tabWeaponMonster[number].xTrajectoire-canvas.width*0.06)/quotient;
             
