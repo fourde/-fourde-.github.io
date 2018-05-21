@@ -1,4 +1,10 @@
 
+@media screen and (min-width: 200px) and (max-width: 1080px) {
+  
+    .menu_btn {
+        font-size: 10%
+    }
+}
 
 
 
@@ -16,7 +22,7 @@
 
 #game_canvas { 
   
-      width: 70%;
+      width: 7%;
     height: 80%;
     align-content: center;
     left : 5%;
