@@ -1,0 +1,438 @@
+
+
+
+
+.star_backgound {
+     width:100%;
+     height:100%;
+      z-index: -1;
+     position: absolute;
+   /*  left: 0px;
+      top: 0px; */
+     display: flex;
+     z-index: -1;
+}
+
+
+#game_canvas { 
+  
+      width: 70%;
+    height: 80%;
+    align-content: center;
+    left : 5%;
+    top : 10%;
+    position: absolute;
+    z-index : 1;
+    display: flex;
+                   
+    border : 1px solid grey;
+    }
+
+#game_area { 
+    width: 70%;
+    height: 80%;
+    align-content: center;
+    left : 5%;
+    top : 10%;
+    position: absolute;
+    z-index : 2;
+    display: flex;
+    color : white;
+                   
+    border : 1px solid grey;
+    }
+
+
+#ammo_bar {
+    
+    
+    position: absolute;
+    z-index : 2;
+    display: flex;
+    
+    top : 83%;
+    left : 78%;
+    height: 1%;
+    width: 15%;
+        
+
+    
+}
+#special_ammo_bar 
+{
+    
+       position: absolute;
+    z-index : 3;
+    display: flex;
+    
+    top : 58%;
+    left : 78%;
+    height: 1%;
+    width: 15%;
+}
+
+
+progress {
+
+        color : red;
+    background-color: red;
+}
+progress::-webkit-progress-bar {
+
+
+    background-color: black;
+    border : 3px;
+    border-color :green;
+}
+progress::-webkit-progress-value {
+
+    background-color: red;
+     border : 3px;
+    border-color :green;
+} 
+progress::-moz-progress-bar {
+        color : red;
+
+}
+ 
+
+/*****************************************/
+/***************  Text *********************/
+/*****************************************/
+#title_ju  {
+       z-index : 2;
+    position : absolute; 
+    display : flex;
+    top : 5%;
+    left : 30%;    
+    text-align: center;
+    margin: auto;
+    color : #00F020;
+    font-family: Impact;
+    text-shadow: 8px 0px 30px  green;
+    
+    	-moz-text-shadow: 0px 0px 30px 0px #3dc21b;
+	-webkit-text-shadow: 0px 0px 30px 0px #3dc21b;
+}
+
+#win_screen {
+    
+    color : #00F020;
+    font-weight : bold ;
+    font-size : 150%;
+    text-align: center;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 10%;
+    position: absolute;
+    
+}
+
+
+#ammo_display {
+    
+       z-index : 2;
+    position : absolute; 
+    display : flex;
+    left : 78%;
+    top : 80%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 60%;
+    
+    
+}
+
+
+#intro_text {
+    
+    z-index : 2;
+    position : absolute; 
+    display : flex;
+    left : 78%;
+    top : 30%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 60%;
+    line-height: 170%;
+    
+}
+
+#pseudo_display {
+    z-index : 2;
+    left : 0.5%;
+    top : 0.5%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 80%;
+    
+}
+
+#score_display {
+    
+     z-index : 2;
+    left : 0.7%;
+    top : 4%;
+    font-family: Impact;
+    text-shadow: 4px 0px 30px  green;
+    font-weight: bold;
+    color : #00F020;
+    font-size : 60%;
+    position : absolute; 
+    display : flex;
+    
+}
+
+
+.highscore_class {
+    
+    color : #00F020;
+    font-weight : bold ;
+    font-size : 60%;
+    text-align: center;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 10%;
+    border : dashed;
+    border-color: #00F070;
+    border-width : 3px;
+    border-radius: 10%;
+    position: absolute;
+    
+}
+
+#welcome {
+    
+      color : #00F020;
+    font-weight : bold ;
+    font-size : 90%;
+    text-align: center;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 30%;
+    position: absolute;
+    
+}
+
+
+/****************************/
+/*******Login*********/
+/******************************/
+
+
+.login_class {
+    
+      color : #00F020;
+    font-weight : bold ;
+    font-size : 70%;
+    text-align: center;
+    width: 60%;
+    height: 80%;
+    left : 20%;
+    top: 65%;
+    position: absolute;
+    
+}
+
+.login_value {
+    
+    color : #00A020 ;
+    left : 90%;
+    top : 30%;
+    background-color: #00F020;
+    border-color : #00F020
+}
+
+#login_btn {
+    
+   	-moz-box-shadow: 0px 0px 3% 0px #3dc21b;
+	-webkit-box-shadow: 0px 0px 3% 0px #3dc21b;
+	box-shadow: 0px 0px 3% 0px #3dc21b;
+	background-color:#44c767;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:5%;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 10%;
+	
+	text-decoration:none;
+	text-shadow:0px 1px 14px #000000;
+    text-align: center;
+    
+}
+
+
+#play_again {
+    
+   	-moz-box-shadow: 0px 0px 3% 0px #3dc21b;
+	-webkit-box-shadow: 0px 0px 3% 0px #3dc21b;
+	box-shadow: 0px 0px 3% 0px #3dc21b;
+	background-color:#44c767;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:5%;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 50%;
+	
+	text-decoration:none;
+	text-shadow:0px 1px 14px #000000;
+    text-align: center;
+     position: absolute;
+    display: flex;
+    width: 20%;
+    height: 15%;
+    
+    top : 75%;
+    left : 70%;
+    
+    
+}
+
+
+/*  bouttons  */
+
+#special_fire 
+{
+    
+    	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:3px solid #7a0c0c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 60%%;
+	font-weight:bold;
+	padding: 1% 2%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+    background-color:#00F020;
+
+    left : 78%;
+    top : 43%;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    width: 15%;
+    height: 12%;
+    
+}
+
+#fire_btn {
+    
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c71a1a), color-stop(1, #ff0000));
+	background:-moz-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-webkit-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-o-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:-ms-linear-gradient(top, #c71a1a 5%, #ff0000 100%);
+	background:linear-gradient(to bottom, #c71a1a 5%, #ff0000 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c71a1a', endColorstr='#ff0000',GradientType=0);
+	background-color:#c71a1a;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:3px solid #7a0c0c;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 60%%;
+	font-weight:bold;
+	padding: 1% 2%;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+
+    left : 78%;
+    top : 60%;
+    z-index: 1;
+    position: absolute;
+    display: flex;
+    width: 15%;
+    height: 12%;
+    
+}
+
+#state_btn {
+    
+        width : 13%;
+    height : 9%;
+    left : 78%;
+    top : 10%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+    text-align: right;
+    font-weight: bold;
+    
+}
+
+
+
+#high_score_btn {
+    width : 15%;
+    height : 8%;
+    left : 78%;
+    top : 20%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+    font-weight: bold;
+    
+}
+
+#about_btn {
+    width : 10%;
+    height : 8%;
+    left : 78%;
+    top : 30%;
+    z-index : 1;
+    position : absolute;
+    display : flex;
+    text-align: right;
+    font-weight: bold;
+}
+
+#body {
+    
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position : relative;
+    
+}
+
+.menu_btn {
+	-moz-box-shadow: 0px 0px 3% 0px #3dc21b;
+	-webkit-box-shadow: 0px 0px 3% 0px #3dc21b;
+	box-shadow: 0px 0px 3% 0px #3dc21b;
+	background-color:#44c767;
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:5%;
+	display:flex;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Impact;
+	font-size: 70%;
+	padding:1% 2%;
+	text-decoration:none;
+	text-shadow:0px 1px 14px #000000;
+    text-align: center;
+    letter-spacing: 2px;
+    
+        z-index : 1;
+    position : absolute;
+    display : flex;
