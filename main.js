@@ -134,7 +134,7 @@ var monster  = {
                 this.tabMonsterNiv3.push({x: this.x+i*canvas.width*0.07, y:this.y+j*canvas.height*0.08, vie:3}); // one monster shift with others
                 if (j==0) {
                     this.tabMonster[i].vie=2;
-                    if((i>2) && (i<6)) {
+                    if((i>2) && (i<7)) {
                         this.tabMonsterNiv2[i].vie = 3;
                     }
                 }
@@ -449,7 +449,7 @@ function checkCollapse(number){
         if(weapon.tabWeapon[number].y <= listeMonster[i].y){ 
             if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x-canvas.width*0.01))){ //If the coordinates of the                                                                                                                                   //weapon are quite the  same than the monster...
                 touch.play();
-                navigator.vibrate(10);
+                navigator.vibrate(70);
                 
                 if (weapon.tabWeapon[number].bigOne == 1) { // If it's the big weapon...
                     boolBigOne = 1;
