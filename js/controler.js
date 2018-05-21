@@ -42,7 +42,11 @@ var game = {
     
     // Save the highscore on the local storage
     save_high_score : function () {
-        localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
+       
+       if(this.high_score_list.length <10) // add extra security for me shure to don't go much than 10 highscore
+       {
+           localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
+       }
     },
     
     // Show the high score on the screen
@@ -252,7 +256,7 @@ var game = {
         
   state_btn.style.backgroundColor = "#ffcc00"; // Change the color of the statge button
         
-    state_btn.innerHTML="Resume Game"; // CHange what the button display
+    state_btn.innerHTML="Resume"; // CHange what the button display
         this.running = false; // Remember that the game is not running
 },
     
@@ -271,7 +275,7 @@ var game = {
         state_btn.style.backgroundColor = "#00F020"; 
         
         // Change whqt is displaying
-        state_btn.innerHTML = "Pause Game";
+        state_btn.innerHTML = "Pause";
         
         
         // set the game running
