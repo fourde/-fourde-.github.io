@@ -487,7 +487,7 @@ function checkCollapse(number){
     }
 }
 
-//FUNCTION COLLASPSE WEAPON ENNEMY WITH SHIP
+// FUNCTION COLLASPSE WEAPON ENNEMY WITH SHIP
 
 function checkCollapseShip(number){ // check to know if a weapon ennemy will hit the ship
     
@@ -550,7 +550,8 @@ function trajectoire(number) { // The goal of this function is to send a missile
 
 
 
-//FUNCTION LOOP WEAPON
+/********* FUNCTION LOOP WEAPON *********/
+// Udapte the wepon for move it
 
 
 
@@ -581,13 +582,13 @@ function updateWeapon() { // function appealed with a short settimeout. This one
 }
  
 
-//FUNCTION FOR AMMO
-
+/*********** FUNCTION FOR AMMO   ******/
+// Reload ammo every 3s
 
 function new_ammo () {
     
     new_ammo_ID = setTimeout(new_ammo,ammo_delay);
-    //console.log("okay");
+    
     if (game.ammo < max_ammo) 
         {
              game.ammo =game.ammo +ammo_amount;
@@ -598,7 +599,7 @@ function new_ammo () {
 }
 
 
-//FUNCTION LOOP WEAPON MONSTER
+/************ FUNCTION LOOP WEAPON MONSTER ***********/
 
 
 
@@ -622,8 +623,7 @@ function updateWeaponMonster() { // function appealed with a short settimeout. T
     IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster); 
 }
 
-
-// FUNCTION FIRE
+/**************** FUNCTION FIRE ***************/
 
 
 function fire() { // When the user puch the button the send a weapon
@@ -642,7 +642,7 @@ function fire() { // When the user puch the button the send a weapon
 }
 
 
-//FUNCTION FIRE FOR THE BIG ONE
+/*********** FUNCTION FIRE FOR THE BIG ONE *********/
 
 
 function fireBigOne () {
