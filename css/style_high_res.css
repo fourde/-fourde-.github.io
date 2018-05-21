@@ -397,6 +397,7 @@ progress::-moz-progress-bar {
     position : absolute;
     display : flex;
     font-weight: bold;
+    font-size : 50%;
     
 }
 

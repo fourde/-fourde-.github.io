@@ -15,14 +15,17 @@
 And the Monster / Weapon / SpaceShip objects which stand for all the in game action, like move the invaders or fire with the spaceship
 */
 
+
+// Get the canvas on the HTML page
 var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 
-
+// Vibrating variable only for mobile
 navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-// variable which meant an image
+
+// Image variable
 
 var img_space_ship = new Image();
 
@@ -39,34 +42,34 @@ var img_monster_3 = new Image();
 var img_space_ship_hit = new Image();
 
 
-// diferrente variable
 
-var high_score_list = [];
+
+var high_score_list = []; // Store the highscore least that we took on the localStorag
 var counterBigWeaponTimer = 0; // a counter to know when we can use the big weapon
 var frameRateMonster = 1000; // used is settimeout in function updatemonster
 var frameRateWeapon = 90; // used is settimeout in function updateweapon
 var frameRateWeaponMonster = 60; // used is settimeout in function updateweapon
 var positionSpaceShipIniX = [];
-var ammo_delay =3000; 
+var ammo_delay =3000;   // Delay between each new level
 var ammo_amount = 2 ; // initialise the number of ammo
 var max_ammo = 15;
 var counter_touch = 0; // counter to know when the space ship have to blink
 
-
+// Audio ( didn't work on phone )
 var touch = new Audio("touch.mp3");
 
-// variable used for the html
+// HTML Element
 
-var gameElement = document.getElementById("game_area");
-var state_btn = document.getElementById("state_btn");
-var scoreElement = document.getElementById("score_display");
-var ammoElement = document.getElementById("ammo_display");
-var ammo_bar = document.getElementById("ammo_bar");
-var special_ammo_bar = document.getElementById("special_ammo_bar");
-var special_btn = document.getElementById("special_fire");
+var gameElement = document.getElementById("game_area"); // Game area, where the game work
+var state_btn = document.getElementById("state_btn");  // Pause / resume button
+var scoreElement = document.getElementById("score_display"); // Where display the score
+var ammoElement = document.getElementById("ammo_display"); // Display the ammo amount
+var ammo_bar = document.getElementById("ammo_bar"); // Ammo bar
+var special_ammo_bar = document.getElementById("special_ammo_bar"); // bigammo bar
+var special_btn = document.getElementById("special_fire");  // big ammo button
 
 
-ammo_bar.setAttribute("max",max_ammo);
+ammo_bar.setAttribute("max",max_ammo); // Set 
 special_ammo_bar.setAttribute("max",15);
 // Interval variables
 
@@ -87,8 +90,9 @@ if (window.DeviceOrientationEvent)
     }, true);
 } 
 
-//OBJECT SPACESHIP
-
+/******** OBJECT SPACESHIP ********/
+// Store all the data of the spaceship
+// Store the method for draw it
 
 var spaceShip  = {
     vie: 3, // life of the ship
@@ -126,6 +130,7 @@ var monster  = {
     tabMonsterNiv2: [], // list of monster for the second level
     tabMonsterNiv3: [], // list of monster for the third level
     
+    // Init all the tab of monster
     initialisation: function() { // function to initialise the list of the monster in order to to display them on the canvas. The list is different with the level
         for(var j=0; j<2; j++){
             for (var i=0; i<10;i++){
@@ -142,6 +147,7 @@ var monster  = {
         }
     },
     
+    // draw all the monsters
     draw: function () { // the function draw the monster on the canvas, according to the level of the game. 
         
         var listeMonster = level(); // some variable used just after. I use them because problem can appear with the function onload
@@ -165,6 +171,7 @@ var monster  = {
         img_monster_3.src = "img/mechant3.png";
     },
     
+    // Erased all the monsters
     erased: function (){  // function the just clear the canvas but not to delete the list
         
         var listeMonster = level();
@@ -320,10 +327,11 @@ function updateMonster() {
     
     positionSpaceShipIniX.push(spaceShip.x); // This list will alow us to remember the position of the ship while the monster is shooting. This is usefull during the function trajectoire                                            //appeal
     
+     spaceShipVie();
     if (checkCollapseNoWeapon()) { // If a monster touch the ship
         game.lose();
     }
-    
+   
     monster_move_ID = setTimeout(updateMonster, frameRateMonster); // motion of all the monster at each time
 }
 
@@ -576,21 +584,7 @@ function updateWeapon() { // function appealed with a short settimeout. This one
 }
  
 
-/*********** FUNCTION FOR AMMO   ******/
-// Reload ammo every 3s
 
-function new_ammo () {
-    
-    new_ammo_ID = setTimeout(new_ammo,ammo_delay);
-    
-    if (game.ammo < max_ammo) 
-        {
-             game.ammo =game.ammo +ammo_amount;
-    ammoElement.innerHTML = "Ammo : "+game.ammo;
-            ammo_bar.setAttribute("value",game.ammo);
-        }
-
-}
 
 
 /************ FUNCTION LOOP WEAPON MONSTER ***********/
@@ -616,6 +610,24 @@ function updateWeaponMonster() { // function appealed with a short settimeout. T
     monster.draw();
     IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster); 
 }
+
+
+/*********** FUNCTION FOR AMMO   ******/
+// Reload ammo every 3s
+
+function new_ammo () {
+    
+    new_ammo_ID = setTimeout(new_ammo,ammo_delay);
+    
+    if (game.ammo < max_ammo) 
+        {
+             game.ammo =game.ammo +ammo_amount;
+    ammoElement.innerHTML = "Ammo : "+game.ammo;
+            ammo_bar.setAttribute("value",game.ammo);
+        }
+
+}
+
 
 /**************** FUNCTION FIRE ***************/
 

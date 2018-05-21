@@ -45,7 +45,8 @@ var game = {
 /*          High score function       */
 /************************************/
     
-    // Load the highscore from the localStorage
+/********** Load the highscore from the localStorage  *******/
+// Call at the start of the game for display highscore
     load_high_score : function  () {
     
         if(localStorage.length !=0) // Protect of load the high score if the localStorage is empty
@@ -54,7 +55,8 @@ var game = {
             }
 },
     
-    // Save the highscore on the local storage
+/*********** Save the highscore on the local storage *******/
+// Call after set a new highscore
     save_high_score : function () {
        
        if(this.high_score_list.length <10) // add extra security for be shure to don't go much than 10 highscore
@@ -65,7 +67,8 @@ var game = {
     
     
     
-    // Show the high score on the screen
+/********** Show the high score on the screen ************/
+// Call when push the high_score button
     show_high_score : function () {
         
         // if the game is finish and the high scrore is not display, remove the win_screen and display the score
@@ -139,7 +142,8 @@ var game = {
 /*          Level Score function      */
 /*************************************/
     
-    // Increase the score 
+/************ Increase the score ***************/
+// Call when we kill or touch an invader
     increase_score : function (point) 
     {
         this.score += point ;
@@ -148,7 +152,8 @@ var game = {
     },
     
      
-    // Winning function 
+/*********** Winning function *********/ 
+// Call when we win
     win : function () {
         
         game.pause(); // pause the game
@@ -182,7 +187,8 @@ var game = {
         
     },
     
-    // Lose function
+/******  Lose function     ***********/
+// Call when we lose
     lose : function () {
         
         game.pause(); // pause the game
@@ -276,6 +282,7 @@ var game = {
 /****************************************/
     
 /****** Pause the game ********/
+// Call when we lose or win or display highscore
     pause : function () {
     
         //Pause all the timers
@@ -293,6 +300,7 @@ var game = {
 },
     
 /******* Resume the game    *******/
+// Call for resume the game
     resume : function () {
         
         // Resume all the timers
@@ -314,6 +322,7 @@ var game = {
     },
         
 /***** Changing the state of the game  *****/
+// Call when we click the change state buttun, check if we need to resume or pause the game
     change_state : function () {
     
             //Don't work if the player didn't put his login or if the game display the high_score or if the game is finish
@@ -332,7 +341,9 @@ var game = {
             }
         }
 },
+    
 /******** Fonction call when for start a new game   *****/
+// Call when we start the play again button
     new_game : function () {
         
         // clear the game
@@ -378,6 +389,7 @@ var game = {
     },
     
 /******** first fonction call by the game ******/
+// First function call, when the body is load
     start : function () {
         
         // Be shure that the game did not work when the user put his pseudo
@@ -446,8 +458,13 @@ var game = {
         
 },
 /********** take the value write on the form  ********/
+// Call when we have set the login
        setlogin : function () {
-        
+        // If the 
+           if (document.form_name.login_value.value ==""){
+               
+           }else {
+           
         this.pseudo = document.form_name.login_value.value;
            
         // remove the child for stop showing the form
@@ -463,6 +480,7 @@ var game = {
            // Launch the game
            this.resume ();
     }
+       }
     
     
 }
