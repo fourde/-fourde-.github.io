@@ -45,7 +45,7 @@ var high_score_list = [];
 var counterBigWeaponTimer = 0; // a counter to know when we can use the big weapon
 var frameRateMonster = 1000; // used is settimeout in function updatemonster
 var frameRateWeapon = 90; // used is settimeout in function updateweapon
-var frameRateWeaponMonster = 220; // used is settimeout in function updateweapon
+var frameRateWeaponMonster = 60; // used is settimeout in function updateweapon
 var positionSpaceShipIniX = [];
 var ammo_delay =3000; 
 var ammo_amount = 2 ; // initialise the number of ammo
@@ -71,7 +71,6 @@ special_ammo_bar.setAttribute("max",15);
 // Interval variables
 
 var weapon_ID; 
-var monster_weapon_ID;
 var monster_move_ID;
 var IDWeaponM;
 var new_ammo_ID;
@@ -133,17 +132,12 @@ var monster  = {
                 this.tabMonster.push({x: this.x+i*canvas.width*0.07, y:this.y+j*canvas.height*0.08, vie:1}); // one monster shift with others
                 this.tabMonsterNiv2.push({x: this.x+i*canvas.width*0.07, y:this.y+j*canvas.height*0.08, vie:2}); // one monster shift with others
                 this.tabMonsterNiv3.push({x: this.x+i*canvas.width*0.07, y:this.y+j*canvas.height*0.08, vie:3}); // one monster shift with others
-                if (this.niveau == 3){
-
-                }
                 if (j==0) {
                     this.tabMonster[i].vie=2;
+                    if((i>2) && (i<6)) {
+                        this.tabMonsterNiv2[i].vie = 3;
+                    }
                 }
-            }
-        }
-        if (this.niveau == 3){
-            for (var i=0; i<10;i++){
-                this.tabMonsterNiv3.push({x: this.x+i*canvas.width*0.06, y:this.y+2*canvas.height*0.08, vie:3}); // if the level is 3, the life of the monster biger, 3 life
             }
         }
     },

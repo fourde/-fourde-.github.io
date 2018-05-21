@@ -185,13 +185,17 @@ var game = {
     // Lose function
     lose : function () {
         
+        game.pause(); // pause the game
+        ctx.clearRect(canvas.width*0.13,canvas.height*0.12,canvas.width*0.87,canvas.height*0.82);
+        clearGame(); // Clear the game
+        
         // if it's the first time we call the function
     if( this.game_end == false)
         {
-        clearGame(); // Clear the game
+        
             this.game_end = true; // remember that the game is finish
         this.load_high_score(); // load the actual high score
-        game.pause(); // pause the game
+        
             
         var set = false; // Reminde if the HighScore is set if the local storage is not empty
         var pos =0; // reminde the pos on the highscore tab for our new score
@@ -276,7 +280,6 @@ var game = {
     
         //Pause all the timers
     clearTimeout(weapon_ID);
-    clearTimeout(monster_weapon_ID );
     clearTimeout(monster_move_ID );
     clearTimeout(new_ammo_ID);
     clearTimeout(IDWeaponM);
@@ -294,7 +297,6 @@ var game = {
         
         // Resume all the timers
         weapon_ID = setTimeout(updateWeapon, frameRateWeapon); 
-        monster_weapon_ID = setTimeout(updateWeaponMonster, frameRateWeapon);
         monster_move_ID = setTimeout(updateMonster, frameRateMonster);
         new_ammo_ID = setTimeout(new_ammo,ammo_delay);
         IDWeaponM = setTimeout(updateWeaponMonster, frameRateWeaponMonster);
@@ -340,6 +342,8 @@ var game = {
         monster.tabMonster =[];
         monster.tabMonsterNiv2 = [];
         monster.tabMonsterNiv3 = [];
+        
+        monster.niveau = 1;
         
         // Reset the weapon tab
         weapon.tabWeapon = [];
