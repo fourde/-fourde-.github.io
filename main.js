@@ -1,9 +1,27 @@
+/* Client-Side Programing Project */
+
+/************************************************/
+        /********** SPACE JU **************/
+/************************************************/
+
+// Emilien Levefre
+// Ulysse Fourquin
+
+// Jonkoping University
+// 2018
+
+
+/* The code mainly work around several object, the game object which stock all the variables like ammo amount or pseudo of the player, and is use for display evrything around the game canvas
+And the Monster / Weapon / SpaceShip objects which stand for all the in game action, like move the invaders or fire with the spaceship
+*/
+
 var canvas = document.querySelector("canvas");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 
 
+navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 // variable which meant an image
 
 var img_space_ship = new Image();
@@ -340,12 +358,19 @@ function colorSpaceShip() { // When the ship is hit, he will blink between green
 
 function timerBigWeapon() {
     counterBigWeaponTimer++;
+    if(game.bigAmmo==0) {
     timer_big_weapon_ID = setTimeout(timerBigWeapon, 1000);
+    }
+    if(game.bigAmmo==1)
+        {
+           clearTimeout(timer_big_weapon_ID); 
+        }
     special_ammo_bar.setAttribute("value",counterBigWeaponTimer);
     if (counterBigWeaponTimer == 15) {
         special_btn.style.background = "#00F020";
         game.bigAmmo = 1;
         counterBigWeaponTimer = 0;
+        clearTimeout(timer_big_weapon_ID);
     }
 }
 timerBigWeapon();
@@ -429,6 +454,7 @@ function checkCollapse(number){
         if(weapon.tabWeapon[number].y <= listeMonster[i].y){ 
             if(((weapon.tabWeapon[number].x)<=(listeMonster[i].x+canvas.width*0.05))&&((weapon.tabWeapon[number].x)>=(listeMonster[i].x-canvas.width*0.01))){ //If the coordinates of the                                                                                                                                   //weapon are quite the  same than the monster...
                 touch.play();
+                navigator.vibrate(1000);
                 
                 if (weapon.tabWeapon[number].bigOne == 1) { // If it's the big weapon...
                     boolBigOne = 1;
@@ -624,6 +650,7 @@ function fireBigOne () {
             weapon.x=spaceShip.x+canvas.height*0.017;
             weapon.tabWeapon.push({x:weapon.x, y:weapon.y, xTrajectoire: weapon.x, bigOne:1});
             game.bigAmmo = 0;
+             timer_big_weapon_ID = setTimeout(timerBigWeapon, 1000);
             special_btn.style.background = "blue";
             
             

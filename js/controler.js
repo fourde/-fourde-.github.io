@@ -1,3 +1,16 @@
+/* Client-Side Programing Project */
+
+/************************************************/
+        /********** SPACE JU **************/
+/************************************************/
+
+// Emilien Levefre
+// Ulysse Fourquin
+
+// Jonkoping University
+// 2018
+
+
 
 // Object defining all the function next to the game
 var game = {
@@ -17,6 +30,7 @@ var game = {
     HS_onscreeen : false,   // remember if we actually displaying HighScore
     login_set : false,      // remember if the login is set or no
     game_end : false,
+    won : false,
     
     score :0,               // Actual score of the player
     
@@ -34,7 +48,7 @@ var game = {
     // Load the highscore from the localStorage
     load_high_score : function  () {
     
-        if(localStorage.length !=0)
+        if(localStorage.length !=0) // Protect of load the high score if the localStorage is empty
             {
     this.high_score_list = localStorage.saved_high_score && JSON.parse(localStorage.saved_high_score);
             }
@@ -43,26 +57,35 @@ var game = {
     // Save the highscore on the local storage
     save_high_score : function () {
        
-       if(this.high_score_list.length <10) // add extra security for me shure to don't go much than 10 highscore
+       if(this.high_score_list.length <10) // add extra security for be shure to don't go much than 10 highscore
        {
            localStorage.setItem("saved_high_score",JSON.stringify(this.high_score_list));
        }
     },
     
+    
+    
     // Show the high score on the screen
     show_high_score : function () {
         
-        // 
+        // if the game is finish and the high scrore is not display, remove the win_screen and display the score
      if (this.game_end == true && (this.HS_onscreeen == false ) )  { 
          gameElement.removeChild(win_screen);
          
-     } 
+     } // if the score is displayed and the game is finish
     if ( (this.game_end == true) && (this.HS_onscreeen == true) )
         {
-            this.lose();
+            if(this.won==false)
+                {
+                  this.lose();  
+                }
+            else if (this.won == true) {
+                this.win();
+            }
+            
         }
         
-    
+    //If at login screen
     if ( (this.login_set == false) && (this.HS_onscreeen == false))
         {
             gameElement.removeChild(login_form);
@@ -75,10 +98,11 @@ var game = {
      
         // if the screen is not actully displayed
         if (this.HS_onscreeen==false) {
-            clearGame();
+             this.pause(); // pause the game
+            clearGame(); // Clear the game area
             
             this.HS_onscreeen = true; // flag set if actually display
-            this.pause(); // pause the game
+           
             
             // create the highscore area div
             var highscore_area = document.createElement("div");
@@ -99,14 +123,12 @@ var game = {
                 highscore_area.innerHTML += "<br> <br>";
             }
         }
-        else {  
+        else {  // If the Highscore is actually displayed, undisplayed it
                 var highscore_area = document.getElementById("highscore_area");
                 gameElement.removeChild(highscore_area);
-            this.HS_onscreeen= false;
-            
-            
-            document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
-            this.change_state();
+                this.HS_onscreeen= false;
+                document.getElementById("pseudo_display").innerHTML = " Player : " + this.pseudo;
+                this.change_state(); // Call for a changing state
                 
         }
      
@@ -129,7 +151,22 @@ var game = {
     // Winning function 
     win : function () {
         
-        game.pause();
+        game.pause(); // pause the game
+        this.won = true; // Know that it's a win
+        
+        if ( this.game_end == false) // If it's the first call (usefull if we call the score )
+            {
+              
+            this.high_score_this_game.pseudo = this.pseudo; // Create the object high_score
+            this.high_score_this_game.score = this.score;
+        
+            this.high_score_list.unshift(this.high_score_this_game); // add the highscore
+            this.save_high_score(); // save him
+             this.game_end = true; // flag for say that we already saved the score
+            }
+        
+        // display the winning screen
+        
         var display_winning = document.createElement("div"); // Create a new div area
         
         display_winning.setAttribute("id","win_screen");
@@ -137,15 +174,9 @@ var game = {
         
         // Display the winning screen
         display_winning.innerHTML = "<h4> Congrat's  ! <br> You destroy all the invaders  </h4>";
-        display_winning.innerHTML += "<br> <h3> Your score is : "+this.score +" </h3> ";
+        display_winning.innerHTML += "<br> <h4> Your score is : "+this.score +" </h4> ";
         
-        this.high_score_this_game.pseudo = this.pseudo;
-        this.high_score_this_game.score = this.score;
         
-        console.log(this.high_score_this_game);
-        console.log(this.high_score_list);
-        high_score_list.unshift(this.high_score_this_game);
-        this.save_high_score();
         
         
         
@@ -154,59 +185,57 @@ var game = {
     // Lose function
     lose : function () {
         
+        // if it's the first time we call the function
     if( this.game_end == false)
         {
-        clearGame();
-            this.game_end = true;
-        this.load_high_score();
-        game.pause();
-        var set = false;
-        var pos =0;
-        var pos_set = false;
-        this.high_score_this_game.pseudo = this.pseudo;
-        this.high_score_this_game.score = this.score;
-        console.log(this.high_score_this_game);
+        clearGame(); // Clear the game
+            this.game_end = true; // remember that the game is finish
+        this.load_high_score(); // load the actual high score
+        game.pause(); // pause the game
+            
+        var set = false; // Reminde if the HighScore is set if the local storage is not empty
+        var pos =0; // reminde the pos on the highscore tab for our new score
+        var pos_set = false; 
+            
+        this.high_score_this_game.pseudo = this.pseudo; // Create the object with 
+        this.high_score_this_game.score = this.score;  // this game score
         
+        // In case of actually no highscore
         if( localStorage.length != 0) {
         for ( var i = 0 ;i < this.high_score_list.length  ; i++) 
             {
-                    if(i <10)
-                        {
+                 if(i <10) // only scan the 10 case of score_list
+                    {
                     
-                    
-                    if(pos_set==false)
+                    if(pos_set==false) // if we already haven't found the good place for the score
                         {
-                           
-                            if ( this.high_score_this_game.score >   this.high_score_list[i].score)
+                            if ( this.high_score_this_game.score >   this.high_score_list[i].score) // if our score is better than the i highscore
                             {
-                                
-                                pos_set=true;
-                                pos = i;
+                                pos_set=true; // say that we find the place
+                                pos = i; // save the place
                             }
                         }
                     }
-                
             }
             
-        if (pos_set==true)
+        if (pos_set==true) // if we have found a place
             {
                 
-                set = true;
-                this.high_score_list.splice(pos,0,this.high_score_this_game);
-                this.save_high_score();
-                console.log(this.high_score_list);
+                set = true; // say that we have set the score
+                this.high_score_list.splice(pos,0,this.high_score_this_game); // splice witouth erased stuff for just add score at his place
+                this.save_high_score(); // Save the score
             }
         }
         
-         if (set == false) 
+         if (set == false) // if the score wasn't set before
                 {
                     
-                    if (this.high_score_list.length <10 )
+                    if (this.high_score_list.length <10 ) // if the list length is les than 10
                         {
                             
-                            this.high_score_list.push(this.high_score_this_game);
+                            this.high_score_list.push(this.high_score_this_game); // add the score at the end of the list
                             
-                            this.save_high_score(); 
+                            this.save_high_score(); // save the score
                             
                         }
                 }
@@ -214,7 +243,7 @@ var game = {
                 
                  
         
-        
+        // Display the loosing screen
         var display_lose = document.createElement("div"); // Create a new div area
 
         display_lose.setAttribute("id","win_screen");
@@ -242,7 +271,7 @@ var game = {
 /*              State function            */
 /****************************************/
     
-    // Pause the game
+/****** Pause the game ********/
     pause : function () {
     
         //Pause all the timers
@@ -254,14 +283,13 @@ var game = {
     clearTimeout(timer_big_weapon_ID);
     
         
-  state_btn.style.backgroundColor = "#ffcc00"; // Change the color of the statge button
+  state_btn.style.backgroundColor = "#ffcc00"; // Change the color of the state button
         
     state_btn.innerHTML="Resume"; // CHange what the button display
         this.running = false; // Remember that the game is not running
 },
     
-    
-    // Resume the game
+/******* Resume the game    *******/
     resume : function () {
         
         // Resume all the timers
@@ -283,10 +311,10 @@ var game = {
     
     },
         
-    // Changing the state of the game
+/***** Changing the state of the game  *****/
     change_state : function () {
     
-            //Don't work if the player didn't put his login or if the game display the high_score
+            //Don't work if the player didn't put his login or if the game display the high_score or if the game is finish
         if ((this.login_set == false) || (this.HS_onscreeen==true) || (this.game_end == true)){
         } else {
         
@@ -302,7 +330,7 @@ var game = {
             }
         }
 },
-    // Fonction call when for start a new game
+/******** Fonction call when for start a new game   *****/
     new_game : function () {
         
         // clear the game
@@ -310,12 +338,12 @@ var game = {
         clearGame();    
         // reset the monster tab
         monster.tabMonster =[];
-    monster.tabMonsterNiv2 = [];
-    monster.tabMonsterNiv3 = [];
+        monster.tabMonsterNiv2 = [];
+        monster.tabMonsterNiv3 = [];
+        
+        // Reset the weapon tab
         weapon.tabWeapon = [];
         weapon.tabWeaponMonster = [];
-        
-        
         
         // init again the monster tab
         monster.initialisation();
@@ -332,8 +360,10 @@ var game = {
         
         // Reset score
         game.score = 0;
+        
         // Display new score
          scoreElement.innerHTML = " Score : 0";
+        
         //Display life of the spaceship
         spaceShipVie();
         game.game_end = false; // remember that we didn't lose
@@ -343,14 +373,15 @@ var game = {
         
     },
     
-        // first fonciton call by the game
+/******** first fonction call by the game ******/
     start : function () {
         
         // Be shure that the game did not work when the user put his pseudo
   
         
        this.pause();
-                // Draw the spacesip and the monster in the back of the login area
+        
+        // Draw the spacesip and the monster in the back of the login area
         spaceShip.draw();
         monster.draw();
         spaceShipVie ();
@@ -410,7 +441,7 @@ var game = {
 
         
 },
-        // take the value write on the form 
+/********** take the value write on the form  ********/
        setlogin : function () {
         
         this.pseudo = document.form_name.login_value.value;
@@ -432,35 +463,36 @@ var game = {
     
 }
 
-// Login object
+
  
 
+/**********************************/
+/******** Moving function *********/
+/**********************************/
 
-// Moving function 
-
-// Moving with arrow, for work on computer
+/***** Moving with arrow, for work on computer  *******/
 document.addEventListener("keydown", function (event) {
+    
+    // go left
     if (event.key === "ArrowLeft") {
-        if((spaceShip.x - canvas.width*0.03) > 0){
+        if((spaceShip.x - canvas.width*0.03) > 0){ // check the left bound
         spaceShip.direction=-1;
-        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
-        spaceShip.x-=canvas.width*0.03 ;
-        spaceShip.draw();
+        ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272); // erase the last spaceship
+        spaceShip.x-=canvas.width*0.03 ; // movethe ship
+        spaceShip.draw(); // display it
     }
-        //weapon.draw();
     } 
-    else if (event.key === "ArrowRight"){
+    else if (event.key === "ArrowRight"){ // go right
         
         
-        if (spaceShip.x + canvas.width*0.03 < canvas.width ) {
+        if (spaceShip.x + canvas.width*0.03 < canvas.width ) { // check bound
                 spaceShip.direction=1;
-              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272);
+              ctx.clearRect(spaceShip.x, spaceShip.y, 293, 272); // erase
         spaceShip.x+= canvas.width*0.03;
-        spaceShip.draw();
-            console.log(spaceShip.x);
+        spaceShip.draw();                  // draw
             }
     }
-    else if (event.key === "ArrowDown"){
+    else if (event.key === "ArrowDown"){  // fire
         
         fire();
     }
@@ -475,7 +507,7 @@ document.addEventListener("keydown", function (event) {
 
 
 
-// Function that move the spaceShip with the orientation of the phone
+/********** Function that move the spaceShip with the orientation of the phone *********/
 function processGyro(alpha,beta,gamma)
 {
         if (beta > 1.5) { // Only move if it's up than 1.5 for alloow the user to not move the spaceship when the phone is not exactly at beta 0
