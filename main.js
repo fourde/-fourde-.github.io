@@ -50,7 +50,7 @@ var frameRateMonster = 1000; // used is settimeout in function updatemonster
 var frameRateWeapon = 90; // used is settimeout in function updateweapon
 var frameRateWeaponMonster = 60; // used is settimeout in function updateweapon
 var positionSpaceShipIniX = [];
-var ammo_delay =3000;   // Delay between each new level
+var ammo_delay =1000;   // Delay between each new level
 var ammo_amount = 2 ; // initialise the number of ammo
 var max_ammo = 15;
 var counter_touch = 0; // counter to know when the space ship have to blink
@@ -106,6 +106,7 @@ var spaceShip  = {
         var yb = this.y;
         img_space_ship.onload = function() {
             ctx.drawImage(img_space_ship, 0, 60, 293, 272, xb, yb, 65, 40);
+            console.log(this);
         };
         img_space_ship.src = "img/space-invader.png";
     },
@@ -117,8 +118,8 @@ var spaceShip  = {
 spaceShip.draw();
 
 
-//OBJECT MONSTER
-
+/******** OBJECT MONSTER ***********/
+// Method for init the monsters and draw them
 
 var monster  = {
     niveau : 1, // level of difficulties of the game
@@ -186,7 +187,7 @@ monster.initialisation();
 
 
 //DISPLAY NUMBER OF LIFE OF THE SHIP
-
+// Call after each monster move for refresh it, and when the spaceship lose one life
 
 function spaceShipVie () { // function to display at the top right of the canvas the number of life of the ship
     img_space_ship.onload = function() {
@@ -202,7 +203,7 @@ spaceShipVie();
 
 
 //FUNCTION LEVEL
-
+// call when we updtademonster for know wich list use
 function level(){ // This function, very usefull, allow the use the different list of monster according to the level
     if (monster.niveau == 1) {
         return (monster.tabMonster);
@@ -215,9 +216,8 @@ function level(){ // This function, very usefull, allow the use the different li
     }
 }
 
+
 //OBJET WEAPON
-
-
 var weapon = {
     
     number:1000,
@@ -418,6 +418,7 @@ function erase(list){ // This function is used in the function checkCollapse. If
                 game.win();
             }
             monster.niveau++;
+            game.ammo = 15; 
             spaceShip.vie ++;    
             spaceShipVie();
         }
